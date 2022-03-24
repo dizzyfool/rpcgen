@@ -28,3 +28,8 @@ func NewClient(schema smd.Schema, title, host string) *Generator {
 func (g Generator) Generate() ([]byte, error) {
 	return json.MarshalIndent(g.schema, "", "	")
 }
+
+// GenerateSchema returns generated openrpc schema as struct.
+func (g Generator) GenerateSchema() openrpc.OpenrpcDocument {
+	return g.schema
+}
