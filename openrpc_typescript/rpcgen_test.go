@@ -1,4 +1,4 @@
-package typescript
+package openrpc_typescript
 
 import (
 	"bytes"

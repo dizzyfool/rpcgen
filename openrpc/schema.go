@@ -191,7 +191,7 @@ func newComponents(schema smd.Schema) *openrpc.Components {
 func parseComponentsFromSchema(serviceName string, schema smd.JSONSchema, components openrpc.SchemaComponents) {
 	sch := newJSONSchema(serviceName, schema)
 	if sch.JSONSchemaObject.Ref != nil && len(schema.Properties) > 0 {
-		base := RefBase(sch.JSONSchemaObject.Ref)
+		base := refBase(sch.JSONSchemaObject.Ref)
 
 		if _, ok := components[base]; !ok {
 			components[base] = newPropertiesFromList(schema.Properties, components)
@@ -224,7 +224,7 @@ func parseDescriptorsFromSchema(serviceName string, schema smd.JSONSchema, compo
 	case smd.Object:
 		if sch.JSONSchemaObject.Ref != nil && len(schema.Properties) > 0 {
 			component = newPropertiesFromList(schema.Properties, components)
-			base = RefBase(sch.JSONSchemaObject.Ref)
+			base = refBase(sch.JSONSchemaObject.Ref)
 		}
 	default:
 		descriptor = newSimpleResponse(schema.Type)
@@ -381,7 +381,7 @@ func cdRefName(name string) *openrpc.Ref {
 	return &ref
 }
 
-func RefBase(ref *openrpc.Ref) string {
+func refBase(ref *openrpc.Ref) string {
 	return path.Base(string(*ref))
 }
 

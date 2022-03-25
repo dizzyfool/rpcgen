@@ -1,15 +1,16 @@
-package typescript
+package openrpc_typescript
 
 import (
 	"bytes"
 	"fmt"
-	openrpc "github.com/open-rpc/meta-schema"
-	openrpcgen "github.com/vmkteam/rpcgen/v2/openrpc"
+	"path"
 	"reflect"
 	"sort"
 	"strings"
 	"text/template"
 	"unicode"
+
+	openrpc "github.com/open-rpc/meta-schema"
 )
 
 const (
@@ -291,7 +292,7 @@ func convertTSType(name string, in openrpc.JSONSchema, required bool, comment st
 
 func convertTSReturn(in *openrpc.MethodObjectResult, components *openrpc.ContentDescriptorComponents, typeMapper TypeMapper) Type {
 	if in.ReferenceObject != nil && components != nil {
-		baseName := openrpcgen.RefBase(in.ReferenceObject.Ref)
+		baseName := refBase(in.ReferenceObject.Ref)
 		if descriptor, ok := (*components)[baseName]; ok {
 			return convertTSDescriptor(*descriptor.(*openrpc.ContentDescriptorObject), typeMapper)
 		}
@@ -362,4 +363,8 @@ func isRequired(name string, required *openrpc.StringArray) bool {
 	}
 
 	return false
+}
+
+func refBase(ref *openrpc.Ref) string {
+	return path.Base(string(*ref))
 }
