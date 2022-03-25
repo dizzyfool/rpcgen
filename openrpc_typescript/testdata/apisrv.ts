@@ -54,132 +54,132 @@ export interface IAnalyticsRemoveFromCartParams {
 }
 
 export interface IApiAlphabeticalGroup {
-    title: string,
     value: string,
-    hasMore: boolean,
-    items: Array<IApiValue>
+    title: string,
+    items: Array<IApiValue>,
+    hasMore: boolean
 }
 
 export interface IApiAnalyticsParams {
-    slickjumpId?: string, // ID for tracking system slickjump
+    yuid?: string, // Yandex uid
+    yclid?: string, // Yandex yclid
+    widgetUrl?: string, // Widget Url
+    utmTerm?: string, // UTM parameter term
     utmSource?: string, // UTM parameter source
     utmMedium?: string, // UTM parameter medium
-    utmCampaign?: string, // UTM parameter campaign
-    utmTerm?: string, // UTM parameter term
     utmContent?: string, // UTM parameter content
-    yuid?: string, // Yandex uid
+    utmCampaign?: string, // UTM parameter campaign
     turboapp?: string, // Yandex Turboapp
-    experimentId?: string, // Experiment ID
-    experimentVariant?: string, // Experiment Variant
-    widgetUrl?: string, // Widget Url
-    deeplinkUrl?: string, // Deeplink Url
-    admitaduid?: string, // Admitad uid
+    slickjumpId?: string, // ID for tracking system slickjump
+    referrer?: string, // Event referrer
     partnerSource?: string, // Partner source
     page?: string, // Event page
-    referrer?: string, // Event referrer
-    yclid?: string // Yandex yclid
+    experimentVariant?: string, // Experiment Variant
+    experimentId?: string, // Experiment ID
+    deeplinkUrl?: string, // Deeplink Url
+    admitaduid?: string // Admitad uid
 }
 
 export interface IApiAppSettings {
+    webvisorDisabled: boolean, // Webvisor is disabled
     readOnly: boolean, // API works in readonly mode
     payoutDisabled: boolean, // Payout is disabled
-    webvisorDisabled: boolean, // Webvisor is disabled
-    cashbackDisabled: boolean, // Cashback is disabled
-    deliveryPaymentDisabled: boolean, // Delivery Payment is Disabled
     discountDisabled: boolean, // Discount Program is Disabled
+    deliveryPaymentDisabled: boolean, // Delivery Payment is Disabled
+    cashbackDisabled: boolean, // Cashback is disabled
     apps: IApiAppSettingsApps
 }
 
 export interface IApiAppSettingsApps {
-    lastSupportedVersionAndroid: string, // Last supported version for Android app
-    lastActualVersionAndroid: string, // Last actual version for Android app
-    lastSupportedVersionIOS: string, // Last supported version for iOS app
-    lastActualVersionIOS: string, // Last actual version for iOS app
-    webViewAndroid: string, // Url for web view for Android app
     webViewIOS: string, // Url for web view for iOS app
+    webViewAndroid: string, // Url for web view for Android app
+    mapAddressHintIOS: boolean, // Show map address hint for iOS app
     mapAddressHintAndroid: boolean, // Show map address hint for Android app
-    mapAddressHintIOS: boolean // Show map address hint for iOS app
+    lastSupportedVersionIOS: string, // Last supported version for iOS app
+    lastSupportedVersionAndroid: string, // Last supported version for Android app
+    lastActualVersionIOS: string, // Last actual version for iOS app
+    lastActualVersionAndroid: string // Last actual version for Android app
 }
 
 export interface IApiArticle {
-    articleId: number,
-    title: string,
-    alias: string,
-    foreword: string,
-    content: string,
-    disclaimer: string,
-    author: string,
-    publicationDate: string,
-    smallImage: string,
-    bigImage: string,
-    image: string,
-    rubric: IApiArticleRubric,
-    categories: Array<IApiCategory>,
-    tags: Array<IApiArticleTag>,
-    disableAds: boolean,
-    readingTime: number,
     totalViews: number,
+    title: string,
+    tags: Array<IApiArticleTag>,
+    smallImage: string,
+    rubric: IApiArticleRubric,
+    relatedArticles: Array<IApiArticleSummary>,
+    readingTime: number,
     ratingCount: number,
     rating: number,
+    publicationDate: string,
     myRating: number,
+    image: string,
+    foreword: string,
+    disclaimer: string,
+    disableAds: boolean,
+    content: string,
+    commentsCount: number,
+    categories: Array<IApiCategory>,
+    bigImage: string,
     authorSummary: IApiArticleAuthorSummary,
-    relatedArticles: Array<IApiArticleSummary>,
-    commentsCount: number
+    author: string,
+    articleId: number,
+    alias: string
 }
 
 export interface IApiArticleAuthor {
-    articleAuthorId: number,
-    title: string,
-    alias: string,
-    position: string,
-    image: string,
-    email?: string,
-    facebook?: string,
-    instagram?: string,
     vkontakte?: string,
-    experienceYears: number,
-    placeOfWork: IApiValue, // deprecated
+    title: string,
+    position: string,
     placesOfWork: Array<IApiValue>,
-    education: Array<IApiValue>,
+    placeOfWork: IApiValue, // deprecated
     licenses: Array<IApiValue>,
-    articlesCount: number,
+    instagram?: string,
+    image: string,
+    facebook?: string,
+    experienceYears: number,
+    email?: string,
+    education: Array<IApiValue>,
     articlesRating: number,
-    articles: Array<IApiArticle>
+    articlesCount: number,
+    articles: Array<IApiArticle>,
+    articleAuthorId: number,
+    alias: string
 }
 
 export interface IApiArticleAuthorSummary {
-    articleAuthorId: number,
     title: string,
-    alias: string,
-    image: string,
     position: string,
-    experienceYears: number
+    image: string,
+    experienceYears: number,
+    articleAuthorId: number,
+    alias: string
 }
 
 export interface IApiArticleComment {
-    commentId: number,
     siteUserId: number,
+    plusVotes: number,
     name: string,
-    content: string,
+    minusVotes: number,
     isMyPlus: boolean,
     isMyMinus: boolean,
-    plusVotes: number,
-    minusVotes: number,
     createdAt: string,
-    article?: IApiArticle,
+    content: string,
     comments: Array<IApiArticleComment>,
-    author?: IApiArticleAuthorSummary
+    commentId: number,
+    author?: IApiArticleAuthorSummary,
+    article?: IApiArticle
 }
 
 export interface IApiArticleCommentComplaint {
-    commentId: number,
-    content: string
+    content: string,
+    commentId: number
 }
 
 export interface IApiArticleCommentForm {
-    articleId: number,
     content: string,
-    commentId?: number
+    commentId?: number,
+    articleId: number
 }
 
 export interface IApiArticleCommentSearch {
@@ -197,18 +197,18 @@ export interface IApiArticleRubric {
 }
 
 export interface IApiArticleSearch {
-    rubricAlias?: string,
     tagAlias?: string,
-    authorId?: number,
-    query?: string
+    rubricAlias?: string,
+    query?: string,
+    authorId?: number
 }
 
 export interface IApiArticleSummary {
-    articleId: number,
     title: string,
-    alias: string,
+    rubric: IApiArticleRubric,
     image: string,
-    rubric: IApiArticleRubric
+    articleId: number,
+    alias: string
 }
 
 export interface IApiArticleTag {
@@ -217,74 +217,74 @@ export interface IApiArticleTag {
 }
 
 export interface IApiAuthValidateRegister {
-    isValid: boolean,
-    isValidEmail: boolean,
+    isValidPhone: boolean,
     isValidName: boolean,
-    isValidPhone: boolean
+    isValidEmail: boolean,
+    isValid: boolean
 }
 
 export interface IApiAutocompleteCategory {
-    category: IApiCategory,
+    imageInfo?: IApiImageInfo,
     image: string,
-    imageInfo?: IApiImageInfo
+    category: IApiCategory
 }
 
 export interface IApiAutocompleteSuggest {
-    title: string,
     trade?: IApiPropertyValue,
-    productIds: Array<number>,
-    query?: string
-}
-
-export interface IApiBanner {
-    type: string,
-    orderNumber: number,
-    url: string,
-    campaign: string,
-    productIds: Array<number>,
-    label: string,
-    image: string
-}
-
-export interface IApiBrand {
     title: string,
-    url: string,
-    imageHash: string,
-    campaign: string,
+    query?: string,
     productIds: Array<number>
 }
 
+export interface IApiBanner {
+    url: string,
+    type: string,
+    productIds: Array<number>,
+    orderNumber: number,
+    label: string,
+    image: string,
+    campaign: string
+}
+
+export interface IApiBrand {
+    url: string,
+    title: string,
+    productIds: Array<number>,
+    imageHash: string,
+    campaign: string
+}
+
 export interface IApiCart {
+    reservationEndsAtText: string,
+    reservationEndsAt: string,
     price: number,
-    isValid: boolean,
-    items: Array<IApiCartItem>,
-    pharmacy: IApiPharmacy,
-    pharmacyNetwork?: IApiPharmacyNetwork,
-    pickupDate: string,
+    pickupIsToday: boolean,
     pickupDateText: string,
     pickupDateRelativeText: string,
-    pickupIsToday: boolean,
-    reservationEndsAt: string,
-    reservationEndsAtText: string,
-    economy: number,
-    discountCard?: IApiDiscountCard,
-    discountRules: IApiCartDiscountRules,
-    discount: number,
-    discountType: string,
+    pickupDate: string,
+    pharmacyNetwork?: IApiPharmacyNetwork,
+    pharmacy: IApiPharmacy,
+    notice?: string,
     loyaltyProgram?: IApiCartLoyaltyProgram,
-    notice?: string
+    items: Array<IApiCartItem>,
+    isValid: boolean,
+    economy: number,
+    discountType: string,
+    discountRules: IApiCartDiscountRules,
+    discountCard?: IApiDiscountCard,
+    discount: number
 }
 
 export interface IApiCartAnalogItem {
     target: IApiCartTargetProduct,
-    analog?: IApiCartAnalogProduct,
-    analogType: string
+    analogType: string,
+    analog?: IApiCartAnalogProduct
 }
 
 export interface IApiCartAnalogProduct {
     product: IApiProductSummary,
-    count: number,
-    price: number
+    price: number,
+    count: number
 }
 
 export interface IApiCartContext {
@@ -293,13 +293,13 @@ export interface IApiCartContext {
 }
 
 export interface IApiCartContextPharmacies {
-    pharmacyIds: Array<number>,
-    pickupOnly: boolean
+    pickupOnly: boolean,
+    pharmacyIds: Array<number>
 }
 
 export interface IApiCartContextPharmaciesResponse {
-    pharmacyIds: Array<number>,
     pickupOnly: boolean,
+    pharmacyIds: Array<number>,
     pharmacyCount: number
 }
 
@@ -315,26 +315,26 @@ export interface IApiCartDiscount {
 }
 
 export interface IApiCartDiscountRules {
-    isPossible: boolean,
-    isAvailable: boolean,
-    amount: number,
-    maxAmount: number,
+    rules: string,
     minOrderAmount: number,
-    hasReferralOrders: boolean,
+    maxAmount: number,
     isPromocodePossible: boolean,
     isPromocodeApplicable: boolean,
+    isPossible: boolean,
     isBonusesPossible: boolean,
     isBonusesApplicable: boolean,
-    rules: string
+    isAvailable: boolean,
+    hasReferralOrders: boolean,
+    amount: number
 }
 
 export interface IApiCartItem {
     productId: number,
-    count: number,
-    error?: string,
     price: number,
     isLowQuantity: boolean,
-    expirationDate: string
+    expirationDate: string,
+    error?: string,
+    count: number
 }
 
 export interface IApiCartLoyaltyProgram {
@@ -347,8 +347,8 @@ export interface IApiCartOptions {
 }
 
 export interface IApiCartProduct {
-    count: number,
-    product: IApiProduct
+    product: IApiProduct,
+    count: number
 }
 
 export interface IApiCartRequestItem {
@@ -362,47 +362,47 @@ export interface IApiCartShare {
 
 export interface IApiCartTargetProduct {
     productId: number,
-    count: number,
-    price: number
+    price: number,
+    count: number
 }
 
 export interface IApiCashbackCampaign {
-    id: number,
-    categoryId: number,
+    tooltips: Array<IApiCashbackTooltip>,
     title: string,
-    alias: string,
-    content: string,
-    cashbackType: IApiCashbackType,
     startDate: string,
-    endDate: string,
-    image: string,
     products: Array<IApiProductSummary>,
-    tooltips: Array<IApiCashbackTooltip>
+    image: string,
+    id: number,
+    endDate: string,
+    content: string,
+    categoryId: number,
+    cashbackType: IApiCashbackType,
+    alias: string
 }
 
 export interface IApiCashbackCampaignSummary {
-    id: number,
-    categoryId: number,
     title: string,
-    alias: string,
-    content: string,
-    cashbackType: IApiCashbackType,
     startDate: string,
+    image: string,
+    id: number,
     endDate: string,
-    image: string
+    content: string,
+    categoryId: number,
+    cashbackType: IApiCashbackType,
+    alias: string
 }
 
 export interface IApiCashbackCategory {
-    id: number,
     title: string,
+    id: number,
     alias: string
 }
 
 export interface IApiCashbackCounters {
-    balance: number, // Current user balance amount
     outcomeAmount: number, // Amount of user payouts
     newIncomeCount: number, // Count of recently approved receipts with cashback items
-    newIncomeAmount: number // Amount of recently approved receipts with cashback items
+    newIncomeAmount: number, // Amount of recently approved receipts with cashback items
+    balance: number // Current user balance amount
 }
 
 export interface IApiCashbackPayoutForm {
@@ -411,460 +411,460 @@ export interface IApiCashbackPayoutForm {
 }
 
 export interface IApiCashbackReceipt {
+    text: string, // Description
+    statusText: string, // End user status representation. May be empty
+    status: string, // Possible values: waiting, processed, matched
     id: number, // Cashback receipt internal uteka ID
+    fullAmount: number, // FullAmount full receipt amount
     displayId: string, // This ID clients should display for user
     date: string, // Receipt upload date
-    amount: number, // Signed receipt cashback amount. May be zero.
-    fullAmount: number, // FullAmount full receipt amount
-    text: string, // Description
-    status: string, // Possible values: waiting, processed, matched
-    statusText: string // End user status representation. May be empty
+    amount: number // Signed receipt cashback amount. May be zero.
 }
 
 export interface IApiCashbackReceiptForm {
     time: string, // Время покупки в формате DD.MM.YY mm:ss. Ошибки: format, required
     sum: string, // Сумма на чеке. Ошибки: required, incorrect
-    fn: string, // Заводской номер фискального накопителя (ФН). Ошибки: required, format
     i: number, // Номер фискальных данных ФД (FiscalDocumentId). Ошибки: required, min, max
-    fp: number // Фискальный признак данных ФП(Д) (FiscalSign). Ошибки: required, min, max
+    fp: number, // Фискальный признак данных ФП(Д) (FiscalSign). Ошибки: required, min, max
+    fn: string // Заводской номер фискального накопителя (ФН). Ошибки: required, format
 }
 
 export interface IApiCashbackReceiptItem {
     title: string,
     count: number,
-    amount: number,
-    cashbackAmount: number
+    cashbackAmount: number,
+    amount: number
 }
 
 export interface IApiCashbackSearch {
+    query?: string,
     cityId?: number,
-    categoryId?: number,
-    query?: string
+    categoryId?: number
 }
 
 export interface IApiCashbackTooltip {
-    alias: string,
     title: string,
-    description: string
+    description: string,
+    alias: string
 }
 
 export interface IApiCashbackTransaction {
+    text: string, // Description
+    statusText: string, // End user status representation. May be empty
+    status: string, // Possible values: paid, processing, error
+    isIncome: boolean, // Is income
     id: number, // Cashback transaction internal uteka ID
     date: string, // Transaction date
-    isIncome: boolean, // Is income
-    amount: number, // Signed transaction amount
-    text: string, // Description
-    status: string, // Possible values: paid, processing, error
-    statusText: string // End user status representation. May be empty
+    amount: number // Signed transaction amount
 }
 
 export interface IApiCashbackType {
-    type: string,
-    value: number
+    value: number,
+    type: string
 }
 
 export interface IApiCatalogueItem {
-    title: string,
-    alias: string,
     tradeId: number,
-    count: number,
+    title: string,
+    productId?: number,
+    producer: string,
     minPrice: number,
     maxPrice: number,
-    productId?: number,
-    diseases: Array<string>,
-    category: IApiCategory,
     mainDisease: string,
-    country: string,
-    producer: string,
+    isAvailable: boolean,
+    isAds: boolean,
     images: Array<string>,
     imageInfos: Array<IApiImageInfo>,
+    diseases: Array<string>,
+    country: string,
+    count: number,
+    category: IApiCategory,
     cashbackType?: IApiCashbackType,
-    isAvailable: boolean,
-    isAds: boolean
+    alias: string
 }
 
 export interface IApiCategory {
-    categoryId: number,
     title: string,
-    alias: string,
+    subCategories: Array<IApiSubCategory>,
+    productsCount: number,
     parentTitle?: string,
     parentAlias?: string,
-    productsCount: number,
     nodes: Array<IApiCategory>,
     isPopular: boolean,
-    color?: string,
-    image: string,
-    imagePNG1x: string,
-    imagePNG2x: string,
-    imagePNG3x: string,
     imagePNG4x: string,
-    subCategories: Array<IApiSubCategory>
+    imagePNG3x: string,
+    imagePNG2x: string,
+    imagePNG1x: string,
+    image: string,
+    color?: string,
+    categoryId: number,
+    alias: string
 }
 
 export interface IApiCity {
-    cityId: number,
-    alias: string,
-    title: string,
-    prepositionalTitle: string,
-    prepositionalTitleRegion: string,
-    genitiveTitle: string,
-    latitude: number,
-    longitude: number,
-    timezone: string,
-    hasDelivery: boolean,
-    hasMetro: boolean,
-    rectangle: string,
-    yandexVerification: string,
     yandexVerificationDesktop: string,
-    googleVerification: string,
-    googleVerificationDesktop: string,
+    yandexVerification: string,
+    title: string,
+    timezone: string,
+    rectangle: string,
+    prepositionalTitleRegion: string,
+    prepositionalTitle: string,
     phone: string,
-    localPhone: string,
     pharmacyCount: number,
+    longitude: number,
+    localPhone: string,
+    latitude: number,
     isTop: boolean,
-    deliveryLabel: string,
+    hasMetro: boolean,
+    hasFolders: boolean,
     hasDiscount: boolean,
-    hasFolders: boolean
+    hasDelivery: boolean,
+    googleVerificationDesktop: string,
+    googleVerification: string,
+    genitiveTitle: string,
+    deliveryLabel: string,
+    cityId: number,
+    alias: string
 }
 
 export interface IApiCourierInfo {
-    courierTypeId: number,
-    city: string,
-    address: string,
     street: string,
     number: string,
+    intercom: string,
+    floor: string,
     flat: string,
     entrance: string,
-    floor: string,
-    intercom: string,
-    comment: string
+    courierTypeId: number,
+    comment: string,
+    city: string,
+    address: string
 }
 
 export interface IApiDeliveryAddress {
-    city: string,
-    address: string,
     street: string,
     number: string,
+    intercom: string,
+    floor: string,
     flat: string,
     entrance: string,
-    floor: string,
-    intercom: string,
-    comment: string
+    comment: string,
+    city: string,
+    address: string
 }
 
 export interface IApiDeliveryCart {
-    deliveryOption: IApiDeliveryOption,
+    notice?: string,
     items: Array<IApiCartItem>,
-    notice?: string
+    deliveryOption: IApiDeliveryOption
 }
 
 export interface IApiDeliveryCourier {
-    courierTypeId: number,
     title: string,
-    alias: string,
+    priceTotal: number,
     price: number,
+    pharmacy: IApiPharmacy,
     deliveryPrice: number,
     deliveryInterval: string,
-    priceTotal: number,
-    pharmacy: IApiPharmacy
+    courierTypeId: number,
+    alias: string
 }
 
 export interface IApiDeliveryCourierCart {
-    deliveryCourier: IApiDeliveryCourier,
-    items: Array<IApiCartItem>
+    items: Array<IApiCartItem>,
+    deliveryCourier: IApiDeliveryCourier
 }
 
 export interface IApiDeliveryInfo {
-    city: string,
-    address: string,
-    deliveryTypeId: number,
-    deliveryType: IApiDeliveryType,
     street: string,
     number: string,
-    building: string,
+    longitude?: number,
+    latitude?: number,
+    intercom: string,
+    floor: string,
     flat: string,
     entrance: string,
-    floor: string,
-    intercom: string,
+    deliveryTypeId: number,
+    deliveryType: IApiDeliveryType,
     comment: string,
-    latitude?: number,
-    longitude?: number
+    city: string,
+    building: string,
+    address: string
 }
 
 export interface IApiDeliveryListItem {
+    termsLink: string,
+    termsDetails: string,
+    terms: string,
     provider: IApiProvider,
     price: number,
-    terms: string,
-    termsDetails: string,
-    termsLink: string,
     deliveryTypes: IApiDeliveryTypeList,
     cities: Array<string>
 }
 
 export interface IApiDeliveryOption {
-    deliveryTypeId: number,
     title: string,
-    label: string,
-    price: number,
-    deliveryPrice: number,
-    priceTotal: number,
-    isInexactPrice: boolean,
-    deliveryDate: string,
-    deliveryDateText: string,
-    deliveryTimeFrom: string,
-    deliveryTimeTo: string,
-    provider: IApiProvider,
     termsLink: string,
     terms: string,
-    paymentTypes: Array<IApiPaymentType>
+    provider: IApiProvider,
+    priceTotal: number,
+    price: number,
+    paymentTypes: Array<IApiPaymentType>,
+    label: string,
+    isInexactPrice: boolean,
+    deliveryTypeId: number,
+    deliveryTimeTo: string,
+    deliveryTimeFrom: string,
+    deliveryPrice: number,
+    deliveryDateText: string,
+    deliveryDate: string
 }
 
 export interface IApiDeliveryType {
-    id: number,
     title: string,
     price: number,
-    deliveryDate: string,
-    deliveryDateText: string,
+    id: number,
+    deliveryTimeTo: string,
     deliveryTimeFrom: string,
-    deliveryTimeTo: string
+    deliveryDateText: string,
+    deliveryDate: string
 }
 
 export interface IApiDeliveryTypeList {
-    city: string,
+    types: Array<IApiDeliveryType>,
     minPrice: number,
-    types: Array<IApiDeliveryType>
+    city: string
 }
 
 export interface IApiDiscountCard {
-    id: number,
     title: string,
-    code: string,
+    partner?: IApiPartnerSummary,
+    id: number,
     codeType: string,
-    partner?: IApiPartnerSummary
+    code: string
 }
 
 export interface IApiDiscountCardForm {
     title: string,
-    code: string,
-    codeType: string
+    codeType: string,
+    code: string
 }
 
 export interface IApiDiscountCounters {
-    balance: number,
     transactionsCount: number,
-    maxAmount: number,
+    referralBonuses: number,
     minOrderAmount: number,
-    hasReferralOrders: boolean,
+    maxAmount: number,
     isPromocodeApplicable: boolean,
-    referralBonuses: number
+    hasReferralOrders: boolean,
+    balance: number
 }
 
 export interface IApiDiscountTransaction {
-    date: string,
-    isIncome: boolean,
-    amount: number,
     label: string,
-    isWaiting: boolean
+    isWaiting: boolean,
+    isIncome: boolean,
+    date: string,
+    amount: number
 }
 
 export interface IApiEntity {
-    id: number,
-    title: string
+    title: string,
+    id: number
 }
 
 export interface IApiFAQCategory {
-    id: number,
     title: string,
-    alias: string,
-    items: Array<IApiFAQItem>
+    items: Array<IApiFAQItem>,
+    id: number,
+    alias: string
 }
 
 export interface IApiFAQItem {
-    id: number,
     title: string,
-    content: string,
-    image: string
+    image: string,
+    id: number,
+    content: string
 }
 
 export interface IApiFeedback {
+    subject?: string,
+    site?: string,
+    phone?: string,
+    pharmacies?: string,
+    organizationType?: string,
+    organizationName?: string,
     name?: string,
     email: string,
-    phone?: string,
-    subject?: string,
     content?: string,
-    organizationName?: string,
-    organizationType?: string,
-    contact?: string,
-    site?: string,
-    pharmacies?: string
+    contact?: string
 }
 
 export interface IApiFullCashbackReceipt {
+    text: string, // Description
+    statusText: string, // End user status representation. May be empty
+    status: string, // Possible values: waiting, processed, matched
+    items: Array<IApiCashbackReceiptItem>, // Receipt items
     id: number, // Cashback receipt internal uteka ID
     displayId: string, // This ID clients should display for user
     date: string, // Receipt purchase date
-    amount: number, // Signed receipt amount. May be zero.
-    text: string, // Description
-    status: string, // Possible values: waiting, processed, matched
-    statusText: string, // End user status representation. May be empty
-    cashbackAmount: number, // Amount of cashback.
     cashbackItemsCount: number, // Count of cashback items, may be 0.
-    items: Array<IApiCashbackReceiptItem> // Receipt items
+    cashbackAmount: number, // Amount of cashback.
+    amount: number // Signed receipt amount. May be zero.
 }
 
 export interface IApiGeoObject {
-    geoObjectId: number,
     title: string,
-    latitude: number,
-    longitude: number,
     pharmacyCount: number,
+    longitude: number,
+    latitude: number,
+    geoObjectId: number,
     city: IApiCity
 }
 
 export interface IApiGeoObjectAutocompleteItem {
     title: string,
-    parentTitle: string,
     pharmacyCount: number,
+    parentTitle: string,
+    parent?: IApiGeoObjectAutocompleteParentItem,
     geoObjectId?: number,
-    city?: IApiCity,
-    parent?: IApiGeoObjectAutocompleteParentItem
+    city?: IApiCity
 }
 
 export interface IApiGeoObjectAutocompleteParentItem {
     title: string,
-    parentTitle: string,
     pharmacyCount: number,
+    parentTitle: string,
     geoObjectId?: number,
     city?: IApiCity
 }
 
 export interface IApiImageInfo {
-    url: string,
-    hash: string,
-    blurhash: string,
     width: number,
-    height: number
+    url: string,
+    height: number,
+    hash: string,
+    blurhash: string
 }
 
 export interface IApiInstruction {
-    desc_id?: string,
     desc_name?: string,
-    COMPOSITION: string,
-    DRUGFORMDESCR: string,
-    PHARMAGROUP: string,
-    PHARMAACTIONS: string,
-    PHARMADYNAMIC: string,
-    PHARMAKINETIC: string,
-    INDICATIONS: string,
-    CONTRAINDICATIONS: string,
-    CAREFULLY: string,
-    PREGNANCYUSE: string,
-    CHILDREN: string,
+    desc_id?: string,
     USEMETHODANDDOSES: string,
-    SIDEACTIONS: string,
-    OVERDOSE: string,
-    INTERACTIONS: string,
+    STORAGECONDITIONS: string,
     SPECIALGUIDELINES: string,
+    SIDEACTIONS: string,
+    REGISTRATIONHOLDER: string,
+    RECOMMENDATIONS: string,
+    PREGNANCYUSE: string,
     PRECAUTIONS: string,
+    PHARMAPROPERTIES: string,
+    PHARMAKINETIC: string,
+    PHARMAGROUP: string,
+    PHARMADYNAMIC: string,
+    PHARMAACTIONS: string,
+    OVERDOSE: string,
+    MANUFACTURER: string,
+    LITERATURE: string,
+    INTERACTIONS: string,
+    INSTRFORPAC: string,
     INFLUENCEONVEHICLES: string,
+    INDICATIONS: string,
     FORM: string,
     EXPIRATION: string,
-    STORAGECONDITIONS: string,
-    APTEKA_CONDITION: string,
-    REGISTRATIONHOLDER: string,
-    MANUFACTURER: string,
-    CONSUMERCLAIMS: string,
-    CHARACTERS: string,
-    ACTONORG: string,
-    COMPONENTSPROPERTIES: string,
-    PHARMAPROPERTIES: string,
-    CLINICALPHARMACOLOGY: string,
+    DRUGFORMDESCR: string,
     DIRECTION: string,
-    RECOMMENDATIONS: string,
-    INSTRFORPAC: string,
-    LITERATURE: string,
-    COMMENT: string
+    CONTRAINDICATIONS: string,
+    CONSUMERCLAIMS: string,
+    COMPOSITION: string,
+    COMPONENTSPROPERTIES: string,
+    COMMENT: string,
+    CLINICALPHARMACOLOGY: string,
+    CHILDREN: string,
+    CHARACTERS: string,
+    CAREFULLY: string,
+    APTEKA_CONDITION: string,
+    ACTONORG: string
 }
 
 export interface IApiInstructionField {
-    key: string,
     value: string,
-    alias?: string,
-    url?: string
+    url?: string,
+    key: string,
+    alias?: string
 }
 
 export interface IApiInstructionFields {
-    order: Array<string>,
-    results: Array<IApiInstructionField>
+    results: Array<IApiInstructionField>,
+    order: Array<string>
 }
 
 export interface IApiKit {
-    id: number,
-    title: string,
-    content?: string,
-    image: string,
-    imageMedium: string,
-    imageBig: string,
-    imageDesktop: string,
-    url: string,
     urlShare: string,
+    url: string,
+    title: string,
     products: Array<IApiProductSummary>,
-    isAvailable: boolean,
-    category?: IApiCategory,
     minPrice: number,
     maxPrice: number,
+    isAvailable: boolean,
+    imageMedium: string,
+    imageDesktop: string,
+    imageBig: string,
+    image: string,
+    id: number,
+    content?: string,
+    category?: IApiCategory,
     blocks: Array<IApiKitBlock>
 }
 
 export interface IApiKitBlock {
     title: string,
-    description: string,
-    productIds: Array<number>
+    productIds: Array<number>,
+    description: string
 }
 
 export interface IApiKitSummary {
-    id: number,
+    url: string,
     title: string,
-    image: string,
     imageHash: string,
-    icon: string,
-    url: string
+    image: string,
+    id: number,
+    icon: string
 }
 
 export interface IApiLastStatus {
-    lastCartUpdate: number,
-    lastOrderUpdate: number
+    lastOrderUpdate: number,
+    lastCartUpdate: number
 }
 
 export interface IApiLegalEntity {
     title: string,
-    inn: string,
     kpp: string,
-    address: string,
-    fileName?: string,
+    inn: string,
     fileUrl?: string,
     fileSize?: number,
-    fileExt?: string
+    fileName?: string,
+    fileExt?: string,
+    address: string
 }
 
 export interface IApiLegalPartner {
-    title: string,
     url: string,
+    title: string,
     rulesUrl: string,
     image: string
 }
 
 export interface IApiLoginByJWTResponse {
-    apiKey: string,
-    state: string // exists, new, linked
+    state: string, // exists, new, linked
+    apiKey: string
 }
 
 export interface IApiMainBrand {
-    title: string,
     url: string,
+    title: string,
+    productIds: Array<number>,
     imageHash: string,
-    campaign: string,
-    productIds: Array<number>
+    campaign: string
 }
 
 export interface IApiMainPageGroup {
@@ -874,78 +874,78 @@ export interface IApiMainPageGroup {
 }
 
 export interface IApiMainPageProduct {
+    title: string,
     sorting: number,
     showingType: number,
     productId: number,
-    title: string,
-    alias: string,
     price: number,
     minPrice: number,
     maxPrice: number,
-    image: string
+    image: string,
+    alias: string
 }
 
 export interface IApiMainPartner {
-    title: string,
     url: string,
+    title: string,
+    productIds: Array<number>,
     imageHash: string,
-    campaign: string,
-    productIds: Array<number>
+    campaign: string
 }
 
 export interface IApiMapArea {
-    latitude: number,
-    longitude: number,
     zoomLevel: number,
+    longitude: number,
+    latitude: number,
     cityId: number
 }
 
 export interface IApiMapByListItem {
-    id: number,
-    distance: number,
-    price: number,
     priceAlt: number,
-    minPrice: number,
-    active: boolean,
-    deliveryType: string,
-    extendedPickupId: number,
+    price: number,
     pickupText: string,
-    hasDiscountCard: boolean,
     partnerId?: number,
-    hasDiscountPrice: boolean,
+    minPrice: number,
     isPartial: boolean,
+    isMissing: boolean,
+    id: number,
+    hasDiscountPrice: boolean,
+    hasDiscountCard: boolean,
+    extendedPickupId: number,
+    distance: number,
+    deliveryType: string,
     cart: Array<IApiMapCartItem>,
-    isMissing: boolean
+    active: boolean
 }
 
 export interface IApiMapCartItem {
     productId: number,
-    count: number,
-    price: number,
     priceAlt: number,
+    price: number,
     isLowQuantity: boolean,
-    expirationDate: string
+    expirationDate: string,
+    count: number
 }
 
 export interface IApiMapClusterMarker {
-    id: string,
-    count: number,
-    lat: number,
     lon: number,
+    lat: number,
+    imageUrl: string,
+    id: string,
     distance: number,
-    imageUrl: string
+    count: number
 }
 
 export interface IApiMapClusterResponse {
     view: IApiMapView,
-    filters?: IApiMapFilters,
-    count: number,
-    map: IApiMapClusterResponseMap,
-    pharmacies: Record<number, IApiPharmacy>,
-    extendedPickups: Record<number, IApiMapExtendedPickupPrice>,
+    statistics: IApiMapStatistics,
     pharmacyLists: IApiMapClusterResponsePharmacyLists,
+    pharmacies: Record<number, IApiPharmacy>,
     partners: Record<number, IApiMapPartner>,
-    statistics: IApiMapStatistics
+    map: IApiMapClusterResponseMap,
+    filters?: IApiMapFilters,
+    extendedPickups: Record<number, IApiMapExtendedPickupPrice>,
+    count: number
 }
 
 export interface IApiMapClusterResponseMap {
@@ -960,254 +960,254 @@ export interface IApiMapClusterResponsePharmacyLists {
 
 export interface IApiMapExtendedPickupPrice {
     price: number,
-    network: IApiPharmacyNetwork,
-    pickupDate: string,
     pickupDateText: string,
-    minPrice: number,
-    active: boolean,
-    hasDiscountPrice: boolean,
+    pickupDate: string,
     partnerId?: number,
+    network: IApiPharmacyNetwork,
+    minPrice: number,
     isPartial: boolean,
-    cart: Array<IApiMapCartItem>
+    hasDiscountPrice: boolean,
+    cart: Array<IApiMapCartItem>,
+    active: boolean
 }
 
 export interface IApiMapExtendedPickupPriceSummary {
-    id: number,
-    pickupText: string
+    pickupText: string,
+    id: number
 }
 
 export interface IApiMapFilters {
-    isOpen?: boolean,
+    pickupTomorrowOnly: boolean,
+    pickupOnly: boolean,
+    pickup1hOnly: boolean,
+    partnerId?: number,
     minPrice?: number,
     maxPrice?: number,
-    pickupOnly: boolean,
-    pickupTomorrowOnly: boolean,
-    pickup1hOnly: boolean,
-    extendedPickupOnly: boolean,
-    discountPriceOnly: boolean,
-    partnerId?: number,
+    isOpen?: boolean,
+    inViewOnly: boolean,
     fullCartOnly: boolean,
-    inViewOnly: boolean
+    extendedPickupOnly: boolean,
+    discountPriceOnly: boolean
 }
 
 export interface IApiMapPartner {
-    partnerId: number,
     title: string,
-    alias: string,
-    icon: string
+    partnerId: number,
+    icon: string,
+    alias: string
 }
 
 export interface IApiMapPharmaciesResponse {
-    total: number,
     totalDistinct: number,
-    byMinPrice: Array<IApiMapByListItem>,
-    byDistance: Array<IApiMapByListItem>,
+    total: number,
+    statistics: IApiMapStatistics,
     pharmacies: Record<number, IApiMapPharmacyPrice>,
     partners: Record<number, IApiMapPartner>,
-    statistics: IApiMapStatistics
+    byMinPrice: Array<IApiMapByListItem>,
+    byDistance: Array<IApiMapByListItem>
 }
 
 export interface IApiMapPharmacyMarker {
-    id: string,
-    lat: number,
-    lon: number,
-    distance: number,
-    price: number,
     priceAlt: number,
-    minPrice: number,
-    active: boolean,
-    image: string,
-    imageUrl: string,
-    pinData: IApiMapPinData,
+    price: number,
     pinLogoUrl: string, // deprecated
-    pharmacyId: number,
-    extendedPickupId?: number,
-    extendedPickupIds: Array<number>,
-    extendedPickups: Array<IApiMapExtendedPickupPriceSummary>,
+    pinData: IApiMapPinData,
     pickupText: string,
-    hasDiscountCard: boolean,
+    pharmacyId: number,
     partnerId?: number,
-    hasDiscountPrice: boolean,
+    minPrice: number,
+    lon: number,
+    lat: number,
     isPartial: boolean,
-    cart: Array<IApiMapCartItem>
+    imageUrl: string,
+    image: string,
+    id: string,
+    hasDiscountPrice: boolean,
+    hasDiscountCard: boolean,
+    extendedPickups: Array<IApiMapExtendedPickupPriceSummary>,
+    extendedPickupIds: Array<number>,
+    extendedPickupId?: number,
+    distance: number,
+    cart: Array<IApiMapCartItem>,
+    active: boolean
 }
 
 export interface IApiMapPharmacyPrice {
-    price: number,
     priceAlt: number,
-    extendedPickup: IApiMapExtendedPickupPrice, // deprecated
-    extendedPickups: Array<IApiMapExtendedPickupPrice>,
+    price: number,
     pharmacy: IApiPharmacy,
-    minPrice: number,
-    active: boolean,
-    hasDiscountPrice: boolean,
     partnerId?: number,
+    minPrice: number,
     isPartial: boolean,
-    cart: Array<IApiMapCartItem>
+    hasDiscountPrice: boolean,
+    extendedPickups: Array<IApiMapExtendedPickupPrice>,
+    extendedPickup: IApiMapExtendedPickupPrice, // deprecated
+    cart: Array<IApiMapCartItem>,
+    active: boolean
 }
 
 export interface IApiMapPinData {
-    isPartial: boolean,
+    totalCount: number,
     price: number,
     logoUrl: string,
-    inStockCount: number,
-    totalCount: number
+    isPartial: boolean,
+    inStockCount: number
 }
 
 export interface IApiMapPostal {
-    city: IApiCity,
-    latitude: number,
-    longitude: number,
     zoomLevel: number,
-    rectangle: string
+    rectangle: string,
+    longitude: number,
+    latitude: number,
+    city: IApiCity
 }
 
 export interface IApiMapSearch {
-    cityId: number,
-    cart: Array<IApiCartRequestItem>,
-    deliveryType: number,
+    withPartial: boolean,
     multiPickup: boolean,
+    deliveryType: number,
+    cityId: number,
     cartId?: string,
-    withPartial: boolean
+    cart: Array<IApiCartRequestItem>
 }
 
 export interface IApiMapStatistics {
-    hasPickup: boolean,
-    hasPickupFiltered: boolean,
+    showFullCartButton: boolean,
     showExpressButton: boolean,
     showExpress1hButton: boolean,
     showDiscountPriceButton: boolean,
-    showFullCartButton: boolean,
+    pharmacyCount: number,
     minPrice: number,
     maxPrice: number,
-    count: number,
+    hasPickupFiltered: boolean,
+    hasPickup: boolean,
     countInView: number,
-    pharmacyCount: number
+    count: number
 }
 
 export interface IApiMapView {
-    neLat: number,
-    neLon: number,
-    swLat: number,
-    swLon: number,
     zoomLevel: number,
+    swLon: number,
+    swLat: number,
+    pharmacyId?: number,
     outsideBox: number,
-    myLat: number,
+    neLon: number,
+    neLat: number,
     myLon: number,
-    pharmacyId?: number
+    myLat: number
 }
 
 export interface IApiMetaDetail {
-    objectClass: string,
-    objectType?: string,
-    objectTitle?: string,
-    objectId?: number,
-    pageTitle: string,
-    metaKeywords?: string,
-    metaDescription?: string,
-    alt?: string,
-    pageHeader: string,
-    productSearch?: IApiProductSearch,
-    openGraph: IApiOpenGraph,
-    seoTradeReviews: Array<IApiProductReview>,
-    seoTradeReviewsAvg?: number,
+    tradeLinks: Array<IApiTradeLink>,
+    tradeAnalogsSearch?: IApiProductSearch,
+    tradeAnalogsCount?: number,
+    tradeActiveSubstances: Array<IApiValue>,
+    subCategories: Array<IApiValue>,
     seoTradeReviewsCount?: number,
+    seoTradeReviewsAvg?: number,
+    seoTradeReviews: Array<IApiProductReview>,
     seoTradeContent?: IApiSEOTradeContent,
     seoInstructions: Array<IApiSEOInstruction>,
     seoCities?: IApiSEOBlock,
-    seoBlock?: IApiSEOBlock,
     seoBlockFAQ?: IApiSEOBlock,
-    breadcrumbs: Array<IApiValue>,
-    tradeLinks: Array<IApiTradeLink>,
-    tradeActiveSubstances: Array<IApiValue>,
-    tradeAnalogsSearch?: IApiProductSearch,
-    tradeAnalogsCount?: number,
-    category?: IApiCategory,
-    subCategories: Array<IApiValue>,
-    propertyValue?: IApiPropertyValue,
+    seoBlock?: IApiSEOBlock,
     robots?: string,
-    product?: IApiProduct
+    propertyValue?: IApiPropertyValue,
+    productSearch?: IApiProductSearch,
+    product?: IApiProduct,
+    pageTitle: string,
+    pageHeader: string,
+    openGraph: IApiOpenGraph,
+    objectType?: string,
+    objectTitle?: string,
+    objectId?: number,
+    objectClass: string,
+    metaKeywords?: string,
+    metaDescription?: string,
+    category?: IApiCategory,
+    breadcrumbs: Array<IApiValue>,
+    alt?: string
 }
 
 export interface IApiOfficeBranch {
-    cityId: number,
-    latitude: number,
-    longitude: number,
-    cityTitle: string,
-    address: string,
     postalCode: string,
-    mapUrl: string
+    mapUrl: string,
+    longitude: number,
+    latitude: number,
+    cityTitle: string,
+    cityId: number,
+    address: string
 }
 
 export interface IApiOpenGraph {
-    title: string,
-    description: string,
-    type: string,
-    image: string,
     url: string,
-    site: string
+    type: string,
+    title: string,
+    site: string,
+    image: string,
+    description: string
 }
 
 export interface IApiOrder {
-    orderId: number,
-    displayOrderId: string,
-    status: IApiStatusOrder,
-    profile: IApiProfile,
-    pharmacy: IApiPharmacy,
-    amount: number,
-    amountTotal: number,
-    products: Array<IApiProductOrder>,
-    createdAt: string,
-    reservationEndsAt: string,
-    reservationEndsAtText: string,
-    deliveryAt?: string,
-    deliveryAtText?: string,
-    extendedPickup?: IApiPharmacyNetwork,
     type: string,
-    deliveryInfo?: IApiDeliveryInfo,
-    deliveryProvider?: IApiPharmacyNetwork,
-    assemblyStatus?: IApiOrderAssemblyStatus,
-    city: IApiCity,
-    courierInfo?: IApiOrderCourierInfo,
-    partner?: IApiPartnerSummary,
-    discountCard?: IApiDiscountCard,
+    status: IApiStatusOrder,
+    reservationEndsAtText: string,
+    reservationEndsAt: string,
+    profile: IApiProfile,
+    products: Array<IApiProductOrder>,
+    pharmacy: IApiPharmacy,
     paymentInfo?: IApiOrderPaymentInfo,
-    economy?: IApiOrderEconomy,
-    discount: number,
+    partner?: IApiPartnerSummary,
+    orderId: number,
+    notice?: string,
     loyaltyProgram?: IApiOrderLoyaltyProgram,
-    notice?: string
+    extendedPickup?: IApiPharmacyNetwork,
+    economy?: IApiOrderEconomy,
+    displayOrderId: string,
+    discountCard?: IApiDiscountCard,
+    discount: number,
+    deliveryProvider?: IApiPharmacyNetwork,
+    deliveryInfo?: IApiDeliveryInfo,
+    deliveryAtText?: string,
+    deliveryAt?: string,
+    createdAt: string,
+    courierInfo?: IApiOrderCourierInfo,
+    city: IApiCity,
+    assemblyStatus?: IApiOrderAssemblyStatus,
+    amountTotal: number,
+    amount: number
 }
 
 export interface IApiOrderAssemblyStatus {
-    label: string, // deprecated
-    endsAtText: string,
     status: string,
-    isExpired: boolean,
     percent: number,
-    labelExpired: string,
     labelRelative: string, // deprecated
-    endsAtRelativeText: string,
-    isToday: boolean
+    labelExpired: string,
+    label: string, // deprecated
+    isToday: boolean,
+    isExpired: boolean,
+    endsAtText: string,
+    endsAtRelativeText: string
 }
 
 export interface IApiOrderCounters {
-    active: number,
     ready: number,
-    completed: number,
     finished: number,
-    economy: number
+    economy: number,
+    completed: number,
+    active: number
 }
 
 export interface IApiOrderCourierInfo {
     deliveryPrice: number,
-    deliveryIntervalFrom: string,
     deliveryIntervalTo: string,
+    deliveryIntervalFrom: string,
     address: IApiDeliveryAddress
 }
 
 export interface IApiOrderEconomy {
-    title: string,
-    value: number
+    value: number,
+    title: string
 }
 
 export interface IApiOrderLoyaltyProgram {
@@ -1216,19 +1216,19 @@ export interface IApiOrderLoyaltyProgram {
 }
 
 export interface IApiOrderPaymentInfo {
+    paymentUrl?: string,
     paymentType: string,
     paymentDeadlineAt: string,
-    paymentUrl?: string,
     isPaid: boolean
 }
 
 export interface IApiOrderSearch {
-    isActive?: boolean,
-    isCompleted?: boolean,
-    isFinished?: boolean,
-    isCancelled?: boolean,
+    sortingIsAsc?: boolean,
     sorting?: string,
-    sortingIsAsc?: boolean
+    isFinished?: boolean,
+    isCompleted?: boolean,
+    isCancelled?: boolean,
+    isActive?: boolean
 }
 
 export interface IApiOrderShare {
@@ -1245,59 +1245,59 @@ export interface IApiOrderStatus {
 }
 
 export interface IApiOrderSummary {
-    orderId: number,
-    displayOrderId: string,
-    status: IApiStatusOrder,
-    profile: IApiProfile,
-    pharmacy: IApiPharmacy,
-    amount: number,
-    amountTotal: number,
-    products: Array<IApiProductOrder>,
-    createdAt: string,
-    reservationEndsAt: string,
-    reservationEndsAtText: string,
-    deliveryAt?: string,
-    deliveryAtText?: string,
-    extendedPickup?: IApiPharmacyNetwork,
     type: string,
-    deliveryInfo?: IApiDeliveryInfo,
-    deliveryProvider?: IApiPharmacyNetwork,
-    assemblyStatus?: IApiOrderAssemblyStatus,
-    city: IApiCity,
-    courierInfo?: IApiOrderCourierInfo,
-    partner?: IApiPartnerSummary,
-    discountCard?: IApiDiscountCard,
+    status: IApiStatusOrder,
+    reservationEndsAtText: string,
+    reservationEndsAt: string,
+    profile: IApiProfile,
+    products: Array<IApiProductOrder>,
+    pharmacy: IApiPharmacy,
     paymentInfo?: IApiOrderPaymentInfo,
+    partner?: IApiPartnerSummary,
+    orderId: number,
+    loyaltyProgram?: IApiOrderLoyaltyProgram,
+    extendedPickup?: IApiPharmacyNetwork,
     economy?: IApiOrderEconomy,
+    displayOrderId: string,
+    discountCard?: IApiDiscountCard,
     discount: number,
-    loyaltyProgram?: IApiOrderLoyaltyProgram
+    deliveryProvider?: IApiPharmacyNetwork,
+    deliveryInfo?: IApiDeliveryInfo,
+    deliveryAtText?: string,
+    deliveryAt?: string,
+    createdAt: string,
+    courierInfo?: IApiOrderCourierInfo,
+    city: IApiCity,
+    assemblyStatus?: IApiOrderAssemblyStatus,
+    amountTotal: number,
+    amount: number
 }
 
 export interface IApiPartner {
-    partnerId: number,
     title: string,
-    alias: string,
-    image: string,
     squareImage: string,
-    pharmacyCount: number,
-    rulesUrl: string,
-    color: string,
-    distanceTradingLinks: Array<IApiValue>, // deprecated
     siteUrl: string,
+    rulesUrl: string,
+    rules: string,
     phone: string,
-    legalAddress: string,
-    legalName: string,
-    legalNameShort: string,
-    inn: string,
+    pharmacyCount: number,
+    partnerId: number,
     ogrn: string,
-    description: string,
-    fileName?: string,
+    loyaltyRules: string,
+    legalNameShort: string,
+    legalName: string,
+    legalAddress: string,
+    inn: string,
+    image: string,
     fileUrl?: string,
     fileSize?: number,
+    fileName?: string,
     fileExt?: string,
-    rules: string,
-    loyaltyRules: string,
-    distanceTradingRules: string
+    distanceTradingRules: string,
+    distanceTradingLinks: Array<IApiValue>, // deprecated
+    description: string,
+    color: string,
+    alias: string
 }
 
 export interface IApiPartnerLoyaltyProgramRules {
@@ -1306,15 +1306,15 @@ export interface IApiPartnerLoyaltyProgramRules {
 }
 
 export interface IApiPartnerSummary {
-    partnerId: number,
     title: string,
-    alias: string,
-    image: string,
     squareImage: string,
-    pharmacyCount: number,
     rulesUrl: string,
+    pharmacyCount: number,
+    partnerId: number,
+    image: string,
+    distanceTradingLinks: Array<IApiValue>, // deprecated
     color: string,
-    distanceTradingLinks: Array<IApiValue> // deprecated
+    alias: string
 }
 
 export interface IApiPaymentInfo {
@@ -1323,93 +1323,93 @@ export interface IApiPaymentInfo {
 
 export interface IApiPaymentType {
     title: string,
-    alias: string,
-    isPaymentRequired: boolean
+    isPaymentRequired: boolean,
+    alias: string
 }
 
 export interface IApiPharmacy {
-    id: number,
-    pharmacyNetworkId: number,
-    network: string,
-    title: string,
-    alias: string,
-    address: string,
-    metroStationId?: number,
-    metroStation?: IApiStation,
-    workingHours?: Array<string>, // deprecated
     workingHoursText: string,
-    latitude: number,
-    longitude: number,
-    is24hour: boolean,
-    isFavorite: boolean,
-    orderNumber: number, // deprecated
-    confirmationText: string, // deprecated
-    city: string,
-    image: string,
+    workingHours?: Array<string>, // deprecated
+    title: string,
+    timezone: string,
+    pickupText: string,
+    phoneExtended: string,
+    phone: string,
+    pharmacyNetworkId: number,
     outOfTurn: boolean, // deprecated
+    orderNumber: number, // deprecated
     orderConfirmationTime: number,
     openCloseText: string,
-    pickupText: string,
-    fullPickupText: string,
-    timezone: string,
+    network: string,
+    metroStationId?: number,
+    metroStation?: IApiStation,
+    longitude: number,
+    latitude: number,
     isOpen: boolean,
-    cashOnly: boolean,
-    phone: string,
-    phoneExtended: string,
-    hasDiscount: boolean,
+    isFavorite: boolean,
+    is24hour: boolean,
+    image: string,
+    id: number,
     hasPickupToday: boolean,
-    hasExtendedPickup: boolean
+    hasExtendedPickup: boolean,
+    hasDiscount: boolean,
+    fullPickupText: string,
+    confirmationText: string, // deprecated
+    city: string,
+    cashOnly: boolean,
+    alias: string,
+    address: string
 }
 
 export interface IApiPharmacyCard {
-    id: number,
-    pharmacyNetworkId: number,
-    network: string,
-    title: string,
-    alias: string,
-    address: string,
-    metroStationId?: number,
-    metroStation?: IApiStation,
-    workingHours?: Array<string>, // deprecated
     workingHoursText: string,
-    latitude: number,
-    longitude: number,
-    is24hour: boolean,
-    isFavorite: boolean,
-    orderNumber: number, // deprecated
-    confirmationText: string, // deprecated
-    city: string,
-    image: string,
+    workingHours?: Array<string>, // deprecated
+    title: string,
+    timezone: string,
+    pickupText: string,
+    phoneExtended: string,
+    phone: string,
+    pharmacyNetworkId: number,
     outOfTurn: boolean, // deprecated
+    orderNumber: number, // deprecated
     orderConfirmationTime: number,
     openCloseText: string,
-    pickupText: string,
-    fullPickupText: string,
-    timezone: string,
+    network: string,
+    nearestPharmacies: Array<IApiPharmacy>,
+    metroStationId?: number,
+    metroStation?: IApiStation,
+    longitude: number,
+    latitude: number,
     isOpen: boolean,
-    cashOnly: boolean,
-    phone: string,
-    phoneExtended: string,
-    hasDiscount: boolean,
+    isFavorite: boolean,
+    is24hour: boolean,
+    image: string,
+    id: number,
     hasPickupToday: boolean,
     hasExtendedPickup: boolean,
-    nearestPharmacies: Array<IApiPharmacy>
+    hasDiscount: boolean,
+    fullPickupText: string,
+    confirmationText: string, // deprecated
+    city: string,
+    cashOnly: boolean,
+    alias: string,
+    address: string
 }
 
 export interface IApiPharmacyClusterMarker {
-    id: string,
-    count: number,
-    latitude: number,
     longitude: number,
+    latitude: number,
+    imageUrl: string,
+    id: string,
     distance: number,
-    imageUrl: string
+    count: number
 }
 
 export interface IApiPharmacyClusterResponse {
     view: IApiMapView,
-    count: number,
+    pharmacyList: Array<IApiPharmacy>,
     map: IApiPharmacyClusterResponseMap,
-    pharmacyList: Array<IApiPharmacy>
+    count: number
 }
 
 export interface IApiPharmacyClusterResponseMap {
@@ -1418,71 +1418,71 @@ export interface IApiPharmacyClusterResponseMap {
 }
 
 export interface IApiPharmacyCount {
-    count: number,
     priceMin: number,
     priceMax: number,
     pharmacyMinPrice: number,
-    deliveryAtText: string,
-    active: boolean,
+    isDeliveryCourierAvailable: boolean, // deprecated
     isDeliveryAvailable: boolean,
-    isDeliveryCourierAvailable: boolean // deprecated
+    deliveryAtText: string,
+    count: number,
+    active: boolean
 }
 
 export interface IApiPharmacyMarker {
-    id: string,
-    latitude: number,
+    pharmacy: IApiPharmacy,
     longitude: number,
-    distance: number,
-    pharmacy: IApiPharmacy
+    latitude: number,
+    id: string,
+    distance: number
 }
 
 export interface IApiPharmacyNetwork {
-    id: number,
     title: string,
-    image: string,
-    imageHash: string,
     phones: Array<string>,
-    externalId: string,
     outOfTurn: boolean,
-    orderConfirmationTime: number
+    orderConfirmationTime: number,
+    imageHash: string,
+    image: string,
+    id: number,
+    externalId: string
 }
 
 export interface IApiPharmacySearch {
-    cityId: number,
-    partnerIds: Array<number>,
     pickupOnly: boolean,
+    partnerIds: Array<number>,
     discountPriceOnly: boolean,
+    cityId: number,
     cartId?: string
 }
 
 export interface IApiPharmacyStatistics {
-    count: number,
     hasPickup: boolean,
-    hasDiscountPrice: boolean
+    hasDiscountPrice: boolean,
+    count: number
 }
 
 export interface IApiPicture {
-    bigUrl: string,
+    smallUrl: string,
     mediumUrl: string,
-    smallUrl: string
+    bigUrl: string
 }
 
 export interface IApiPopularQuery {
-    title: string,
     url: string,
-    productSearch: IApiProductSearch,
+    title: string,
     singleProductId?: number,
+    productSearch: IApiProductSearch,
     productIds: Array<number>
 }
 
 export interface IApiPrescription {
-    prescriptionId: number,
-    createdAt: string,
-    dateEnd: string,
-    organization: string,
-    address: string,
     titles: Array<string>,
-    items: Array<IApiPrescriptionItem>
+    prescriptionId: number,
+    organization: string,
+    items: Array<IApiPrescriptionItem>,
+    dateEnd: string,
+    createdAt: string,
+    address: string
 }
 
 export interface IApiPrescriptionItem {
@@ -1496,270 +1496,270 @@ export interface IApiPrescriptionProduct {
 }
 
 export interface IApiPrescriptionSummary {
+    titles: Array<string>,
     prescriptionId: number,
-    createdAt: string,
-    dateEnd: string,
     organization: string,
-    address: string,
-    titles: Array<string>
+    dateEnd: string,
+    createdAt: string,
+    address: string
 }
 
 export interface IApiProduct {
-    productId: number,
+    weightApps: number,
+    weight: number,
+    values: Array<IApiValue>,
+    tradeProductsCount: number,
+    trade?: IApiPropertyValue,
     title: string,
     subtitle: string,
-    fullTitle: string,
-    propTitle: string,
-    fullProducer: string,
-    alias: string,
-    minPrice: number,
-    maxPrice: number,
-    avgPrice: number,
-    isAvailable: boolean,
-    hasInstruction: boolean,
-    hasRecipe: boolean,
-    amount: number,
-    amountText: string,
-    dosage?: string,
-    packDosage?: string,
-    dose?: string,
-    dosageFormSize?: string,
-    pack1n?: string,
-    producer?: string,
-    country?: string,
-    activeSubstance?: string,
-    diseases: Array<string>,
-    images: Array<string>,
-    imageHashes: Array<string>,
-    imageInfos: Array<IApiImageInfo>,
-    category?: IApiCategory,
-    mainDisease?: string,
-    dfc?: string,
-    pharmacyCount: number,
-    pharmacyPickupCount: number,
-    pickup: boolean,
-    delivery: boolean,
+    strictAnalogsMinPrice?: number,
+    strictAnalogsCount?: number,
+    seoLinks: Array<IApiSeoLink>,
+    seoBlockTitleShort: string,
+    seoBlockTitle: string,
+    reviewSummary: Array<IApiProductReview>,
     reviewRating?: number,
     reviewCount: number,
-    label?: string,
-    campaign?: string,
+    releaseForms: Array<IApiReleaseForm>,
+    quantityDelivery: number,
+    quantity: number,
+    propertyValueListings: Array<IApiValue>,
+    propTitle: string,
+    productId: number,
+    producerProperty?: IApiPropertyValue,
+    producer?: string,
+    pickup: boolean,
+    pharmacyPickupCount: number,
+    pharmacyCount: number,
+    packDosage?: string,
+    pack1n?: string,
+    minPrice: number,
+    maxPrice: number,
+    mainDisease?: string,
     lastPrice?: number,
     lastDate?: string,
-    cashbackType?: IApiCashbackType,
-    trade?: IApiPropertyValue,
-    weight: number,
-    weightApps: number,
-    quantity: number,
-    isAds: boolean,
-    GRLSUrl?: string,
-    quantityDelivery: number,
-    instruction?: IApiInstruction,
-    analogsCount: number, // deprecated
+    label?: string,
     isFavorite: boolean,
-    reviewSummary: Array<IApiProductReview>,
-    activeSubstanceProperty?: IApiPropertyValue,
-    values: Array<IApiValue>,
-    categoryProperties: Array<IApiProperty>,
-    seoLinks: Array<IApiSeoLink>,
-    seoBlockTitle: string,
-    seoBlockTitleShort: string,
-    strictAnalogsCount?: number,
-    strictAnalogsMinPrice?: number,
-    certificates: Array<string>,
+    isAvailable: boolean,
+    isAds: boolean,
+    instruction?: IApiInstruction,
+    images: Array<string>,
+    imageInfos: Array<IApiImageInfo>,
+    imageHashes: Array<string>,
+    hasRecipe: boolean,
+    hasInstruction: boolean,
+    fullTitle: string,
+    fullProducer: string,
+    dose?: string,
+    dosageFormSize?: string,
+    dosage?: string,
+    diseases: Array<string>,
+    dfc?: string,
+    delivery: boolean,
+    country?: string,
     certificatesPictures: Array<IApiPicture>,
-    releaseForms: Array<IApiReleaseForm>,
+    certificates: Array<string>,
+    categoryProperties: Array<IApiProperty>,
+    category?: IApiCategory,
+    cashbackType?: IApiCashbackType,
+    campaign?: string,
+    avgPrice: number,
+    analogsCount: number, // deprecated
     analogBanner?: IApiProductSummary,
-    tradeProductsCount: number,
-    producerProperty?: IApiPropertyValue,
-    propertyValueListings: Array<IApiValue>
+    amountText: string,
+    amount: number,
+    alias: string,
+    activeSubstanceProperty?: IApiPropertyValue,
+    activeSubstance?: string,
+    GRLSUrl?: string
 }
 
 export interface IApiProductAutocompleteInfo {
-    promoProduct?: IApiProductSummary,
-    suggests: Array<IApiAutocompleteSuggest>,
     trades: Array<IApiPropertyValue>,
-    categories: Array<IApiAutocompleteCategory>,
+    suggests: Array<IApiAutocompleteSuggest>,
+    promoProduct?: IApiProductSummary,
+    products: Array<IApiProductSummary>,
     producers: Array<IApiPropertyValue>,
-    products: Array<IApiProductSummary>
+    categories: Array<IApiAutocompleteCategory>
 }
 
 export interface IApiProductBanner {
-    bannerType: string,
+    url: string,
     title: string,
-    url: string
+    bannerType: string
 }
 
 export interface IApiProductFilters {
-    count?: number,
-    countDelivery?: number,
+    properties: Array<IApiProperty>,
     minPrice?: number,
     maxPrice?: number,
     mainProperties: Array<IApiPropertyValue>,
-    properties: Array<IApiProperty>,
+    countDelivery?: number,
+    count?: number,
     categories: Array<IApiCategory>
 }
 
 export interface IApiProductOfTheDay {
-    categoryId: number,
-    product: IApiProductSummary
+    product: IApiProductSummary,
+    categoryId: number
 }
 
 export interface IApiProductOrder {
-    productId: number,
+    weightApps: number,
+    weight: number,
+    trade?: IApiPropertyValue,
     title: string,
     subtitle: string,
-    fullTitle: string,
-    propTitle: string,
-    fullProducer: string,
-    alias: string,
-    minPrice: number,
-    maxPrice: number,
-    avgPrice: number,
-    isAvailable: boolean,
-    hasInstruction: boolean,
-    hasRecipe: boolean,
-    amount: number,
-    amountText: string,
-    dosage?: string,
-    packDosage?: string,
-    dose?: string,
-    dosageFormSize?: string,
-    pack1n?: string,
-    producer?: string,
-    country?: string,
-    activeSubstance?: string,
-    diseases: Array<string>,
-    images: Array<string>,
-    imageHashes: Array<string>,
-    imageInfos: Array<IApiImageInfo>,
-    category?: IApiCategory,
-    mainDisease?: string,
-    dfc?: string,
-    pharmacyCount: number,
-    pharmacyPickupCount: number,
-    pickup: boolean,
-    delivery: boolean,
     reviewRating?: number,
     reviewCount: number,
-    label?: string,
-    campaign?: string,
+    quantity: number,
+    propTitle: string,
+    productId: number,
+    producer?: string,
+    price: number,
+    pickup: boolean,
+    pharmacyPickupCount: number,
+    pharmacyCount: number,
+    packDosage?: string,
+    pack1n?: string,
+    minPrice: number,
+    maxPrice: number,
+    mainDisease?: string,
     lastPrice?: number,
     lastDate?: string,
-    cashbackType?: IApiCashbackType,
-    trade?: IApiPropertyValue,
-    weight: number,
-    weightApps: number,
-    quantity: number,
-    isAds: boolean,
-    GRLSUrl?: string,
-    price: number,
-    count: number,
+    label?: string,
     isLowQuantity: boolean,
-    expirationDate: string
+    isAvailable: boolean,
+    isAds: boolean,
+    images: Array<string>,
+    imageInfos: Array<IApiImageInfo>,
+    imageHashes: Array<string>,
+    hasRecipe: boolean,
+    hasInstruction: boolean,
+    fullTitle: string,
+    fullProducer: string,
+    expirationDate: string,
+    dose?: string,
+    dosageFormSize?: string,
+    dosage?: string,
+    diseases: Array<string>,
+    dfc?: string,
+    delivery: boolean,
+    country?: string,
+    count: number,
+    category?: IApiCategory,
+    cashbackType?: IApiCashbackType,
+    campaign?: string,
+    avgPrice: number,
+    amountText: string,
+    amount: number,
+    alias: string,
+    activeSubstance?: string,
+    GRLSUrl?: string
 }
 
 export interface IApiProductPartnerPrice {
+    pharmacyCount: number,
     partnerId: number,
     partner: IApiPartnerSummary,
     minPrice: number,
-    hasOtherPrices: boolean,
-    pharmacyCount: number
+    hasOtherPrices: boolean
 }
 
 export interface IApiProductPrice {
     productId: number,
+    pickup: boolean,
+    pharmacyCount: number,
     minPrice: number,
     maxPrice: number,
-    pharmacyCount: number,
-    pickup: boolean,
-    delivery: boolean,
-    isAvailable: boolean
+    isAvailable: boolean,
+    delivery: boolean
 }
 
 export interface IApiProductPriceHistory {
-    label: string,
     minPrice: number,
     maxPrice: number,
+    label: string,
     avgPrice: number
 }
 
 export interface IApiProductReminder {
-    productReminderId: number,
     startAt: string,
     scheduleUsage: number,
-    frequency: number,
-    medicationRule: IApiValue,
-    duration?: number,
+    scheduleProgress: Array<IApiReminderScheduleProgressItem>,
     schedule: Array<IApiReminderScheduleItem>,
-    notificationSettings?: IApiReminderNotification,
+    productReminderId: number,
     product?: IApiProductSummary,
-    scheduleProgress: Array<IApiReminderScheduleProgressItem>
+    notificationSettings?: IApiReminderNotification,
+    medicationRule: IApiValue,
+    frequency: number,
+    duration?: number
 }
 
 export interface IApiProductReminderSummary {
-    productReminderId: number,
     startAt: string,
     scheduleUsage: number,
-    frequency: number,
-    medicationRule: IApiValue,
-    duration?: number,
     schedule: Array<IApiReminderScheduleItem>,
+    productReminderId: number,
+    product?: IApiProductSummary,
     notificationSettings?: IApiReminderNotification,
-    product?: IApiProductSummary
+    medicationRule: IApiValue,
+    frequency: number,
+    duration?: number
 }
 
 export interface IApiProductReview {
-    reviewId: number,
     siteUserId?: number,
-    name: string,
+    reviewId: number,
     rating: number,
-    content: string,
-    advantages: string,
-    disadvantages: string,
-    imageHashes: Array<string>,
+    product?: IApiProductSummary,
+    plusVotes: number,
+    name: string,
+    minusVotes: number,
+    isVerified: boolean,
     isMyPlus: boolean,
     isMyMinus: boolean,
-    plusVotes: number,
-    minusVotes: number,
+    imageHashes: Array<string>,
+    disadvantages: string,
     createdAt: string,
-    isVerified: boolean,
-    product?: IApiProductSummary,
-    comments: Array<IApiProductReviewComment>
+    content: string,
+    comments: Array<IApiProductReviewComment>,
+    advantages: string
 }
 
 export interface IApiProductReviewComment {
-    commentId: number,
-    reviewId: number,
     siteUserId: number,
+    reviewId: number,
+    plusVotes: number,
     name: string,
-    avatarHash: string,
-    content: string,
+    minusVotes: number,
+    isProducer: boolean,
     isMyPlus: boolean,
     isMyMinus: boolean,
-    plusVotes: number,
-    minusVotes: number,
     createdAt: string,
-    isProducer: boolean
+    content: string,
+    commentId: number,
+    avatarHash: string
 }
 
 export interface IApiProductReviewCommentRating {
-    isMyPlus: boolean,
-    isMyMinus: boolean,
     plusVotes: number,
-    minusVotes: number
+    minusVotes: number,
+    isMyPlus: boolean,
+    isMyMinus: boolean
 }
 
 export interface IApiProductReviewRating {
-    isMyPlus: boolean,
-    isMyMinus: boolean,
     plusVotes: number,
-    minusVotes: number
+    minusVotes: number,
+    isMyPlus: boolean,
+    isMyMinus: boolean
 }
 
 export interface IApiProductReviewReleaseForm {
-    releaseFormId: number,
     title: string,
     reviewCount: number,
+    releaseFormId: number,
     rating: number
 }
 
@@ -1769,216 +1769,216 @@ export interface IApiProductReviewStatistics {
 }
 
 export interface IApiProductSearch {
-    analogProductId?: number,
-    excludeProductId?: number,
-    productIds?: Array<number>,
-    query?: string,
-    categoryId?: number,
-    categoryIds?: Array<number>,
-    filterCategoryIds?: Array<number>,
-    tradeId?: number,
+    withDelivery?: boolean,
+    withChildCategories?: boolean,
     tradeIds?: Array<number>,
-    propertyValueIds?: Array<number>,
-    filterPropertyValueIds?: Array<number>,
-    excludePropertyValueIds?: Array<number>,
-    mainPropertyIds?: Array<number>,
-    isPopular?: boolean,
-    cityId?: number,
-    pharmacyIds?: Array<number>,
-    sorting?: string,
+    tradeId?: number,
     sortingIsAsc?: boolean,
+    sorting?: string,
+    showDisabled?: boolean,
+    query?: string,
+    propertyValueIds?: Array<number>,
+    productIds?: Array<number>,
     priceMin?: number,
     priceMax?: number,
-    showDisabled?: boolean,
-    withChildCategories?: boolean,
-    withDelivery?: boolean,
+    pharmacyIds?: Array<number>,
+    mergedPropertyIds?: Array<number>,
+    mainPropertyIds?: Array<number>,
+    isPopular?: boolean,
+    filterPropertyValueIds?: Array<number>,
+    filterCategoryIds?: Array<number>,
+    excludePropertyValueIds?: Array<number>,
+    excludeProductId?: number,
+    cityId?: number,
+    categoryIds?: Array<number>,
+    categoryId?: number,
     cartId?: string,
-    mergedPropertyIds?: Array<number>
+    analogProductId?: number
 }
 
 export interface IApiProductSummary {
-    productId: number,
+    weightApps: number,
+    weight: number,
+    trade?: IApiPropertyValue,
     title: string,
     subtitle: string,
-    fullTitle: string,
-    propTitle: string,
-    fullProducer: string,
-    alias: string,
-    minPrice: number,
-    maxPrice: number,
-    avgPrice: number,
-    isAvailable: boolean,
-    hasInstruction: boolean,
-    hasRecipe: boolean,
-    amount: number,
-    amountText: string,
-    dosage?: string,
-    packDosage?: string,
-    dose?: string,
-    dosageFormSize?: string,
-    pack1n?: string,
-    producer?: string,
-    country?: string,
-    activeSubstance?: string,
-    diseases: Array<string>,
-    images: Array<string>,
-    imageHashes: Array<string>,
-    imageInfos: Array<IApiImageInfo>,
-    category?: IApiCategory,
-    mainDisease?: string,
-    dfc?: string,
-    pharmacyCount: number,
-    pharmacyPickupCount: number,
-    pickup: boolean,
-    delivery: boolean,
     reviewRating?: number,
     reviewCount: number,
-    label?: string,
-    campaign?: string,
+    quantity: number,
+    propTitle: string,
+    productId: number,
+    producer?: string,
+    pickup: boolean,
+    pharmacyPickupCount: number,
+    pharmacyCount: number,
+    packDosage?: string,
+    pack1n?: string,
+    minPrice: number,
+    maxPrice: number,
+    mainDisease?: string,
     lastPrice?: number,
     lastDate?: string,
-    cashbackType?: IApiCashbackType,
-    trade?: IApiPropertyValue,
-    weight: number,
-    weightApps: number,
-    quantity: number,
+    label?: string,
+    isAvailable: boolean,
     isAds: boolean,
+    images: Array<string>,
+    imageInfos: Array<IApiImageInfo>,
+    imageHashes: Array<string>,
+    hasRecipe: boolean,
+    hasInstruction: boolean,
+    fullTitle: string,
+    fullProducer: string,
+    dose?: string,
+    dosageFormSize?: string,
+    dosage?: string,
+    diseases: Array<string>,
+    dfc?: string,
+    delivery: boolean,
+    country?: string,
+    category?: IApiCategory,
+    cashbackType?: IApiCashbackType,
+    campaign?: string,
+    avgPrice: number,
+    amountText: string,
+    amount: number,
+    alias: string,
+    activeSubstance?: string,
     GRLSUrl?: string
 }
 
 export interface IApiProfile {
-    id: number,
+    withOTCPersonalData: boolean,
+    withBayerPersonalData: boolean,
     phone: string,
     name: string,
+    isPushNotificationEnabled: boolean,
+    isMarketingNotificationEnabled: boolean,
+    isEmailNotificationEnabled: boolean,
+    id: number,
     email: string,
     cityId: number,
-    addressHome: string,
     addressWork: string,
-    isPushNotificationEnabled: boolean,
-    isEmailNotificationEnabled: boolean,
-    isMarketingNotificationEnabled: boolean,
-    withBayerPersonalData: boolean,
-    withOTCPersonalData: boolean
+    addressHome: string
 }
 
 export interface IApiProfileFavoriteProductSearch {
-    cityId?: number,
-    sorting?: string,
     sortingIsAsc?: boolean,
+    sorting?: string,
+    cityId?: number,
     cartId?: string
 }
 
 export interface IApiProfileOrderProductSearch {
-    cityId?: number,
-    sorting?: string,
     sortingIsAsc?: boolean,
+    sorting?: string,
+    cityId?: number,
     cartId?: string
 }
 
 export interface IApiProfileRegister {
-    isMarketingNotificationEnabled?: boolean,
+    withOTCPersonalData?: boolean,
     withBayerPersonalData?: boolean,
-    withOTCPersonalData?: boolean
+    isMarketingNotificationEnabled?: boolean
 }
 
 export interface IApiProfileUpdate {
+    withOTCPersonalData?: boolean,
+    withBayerPersonalData?: boolean,
     name?: string,
+    isPushNotificationEnabled?: boolean,
+    isMarketingNotificationEnabled?: boolean,
+    isEmailNotificationEnabled?: boolean,
+    idfa?: string,
+    iOSfcmToken?: string,
+    gender?: string,
+    gaid?: string,
     email?: string,
     cityId?: number,
-    addressHome?: string,
-    addressWork?: string,
-    isPushNotificationEnabled?: boolean,
-    isEmailNotificationEnabled?: boolean,
-    isMarketingNotificationEnabled?: boolean,
-    iOSfcmToken?: string,
-    androidFcmToken?: string,
-    gender?: string,
     birthDate?: string,
-    gaid?: string,
-    idfa?: string,
-    withBayerPersonalData?: boolean,
-    withOTCPersonalData?: boolean
+    androidFcmToken?: string,
+    addressWork?: string,
+    addressHome?: string
 }
 
 export interface IApiPromoItem {
-    title: string,
     url: string,
-    image: string,
-    productId: number,
     tradeId?: number,
-    campaign?: string,
-    productIds: Array<number>
+    title: string,
+    productIds: Array<number>,
+    productId: number,
+    image: string,
+    campaign?: string
 }
 
 export interface IApiProperty {
-    propertyId: number,
+    values: Array<IApiPropertyValue>,
     title: string,
+    propertyId: number,
     description: string,
-    alias: string,
-    values: Array<IApiPropertyValue>
+    alias: string
 }
 
 export interface IApiPropertyValue {
+    url?: string,
+    title: string,
     propertyValueId: number,
     propertyId: number,
-    title: string,
-    alias: string,
-    url?: string,
-    image?: string,
     imageInfo?: IApiImageInfo,
-    hasInstruction: boolean
+    image?: string,
+    hasInstruction: boolean,
+    alias: string
 }
 
 export interface IApiProvider {
-    id: number,
-    pharmacyNetworkId: number,
     title: string,
+    phones: Array<string>,
+    pharmacyNetworkId: number,
     image: string,
-    phones: Array<string>
+    id: number
 }
 
 export interface IApiProviderCount {
-    count: number,
     priceMin?: number,
     priceMax?: number,
-    priceDeliveryMin: number
+    priceDeliveryMin: number,
+    count: number
 }
 
 export interface IApiReadingLink {
     url: string,
     image: string,
-    alt: string,
-    description: string
+    description: string,
+    alt: string
 }
 
 export interface IApiReleaseForm {
-    productId: number,
     title: string,
-    alias: string,
-    minPrice: number
+    productId: number,
+    minPrice: number,
+    alias: string
 }
 
 export interface IApiReminderForm {
-    productReminderId: number,
-    productId: number,
     startAt: string, // Начало курса
     scheduleUsage: number, // Частота приёма лекарства в месяц (ежедневно, раз в 2 дня и т.п.)
-    frequency: number, // Частота приёма лекарства в день
-    medicationRule: string, // Правило приема
     schedule: Array<IApiReminderScheduleItem>, // График времени приема лекарств
-    duration?: number, // Длительность курса, null - постоянно
-    notificationSettings?: IApiReminderNotification
+    productReminderId: number,
+    productId: number,
+    notificationSettings?: IApiReminderNotification,
+    medicationRule: string, // Правило приема
+    frequency: number, // Частота приёма лекарства в день
+    duration?: number // Длительность курса, null - постоянно
 }
 
 export interface IApiReminderNotification {
-    currentStocks: number, // Текущий запас препарата
-    notificationStocks: number // Запас препарата для напоминания
+    notificationStocks: number, // Запас препарата для напоминания
+    currentStocks: number // Текущий запас препарата
 }
 
 export interface IApiReminderProgressForm {
-    productReminderId: number,
+    progressRemove: Array<string>,
     progressAdd: Array<string>,
-    progressRemove: Array<string>
+    productReminderId: number
 }
 
 export interface IApiReminderScheduleItem {
@@ -1993,8 +1993,8 @@ export interface IApiReminderScheduleProgressItem {
 }
 
 export interface IApiReviewCommentComplaint {
-    commentId: number,
-    content: string
+    content: string,
+    commentId: number
 }
 
 export interface IApiReviewCommentForm {
@@ -2008,38 +2008,38 @@ export interface IApiReviewComplaint {
 }
 
 export interface IApiReviewForm {
-    productId: number,
     rating: number,
-    content: string,
-    advantages: string,
+    productId: number,
+    imageHashes: Array<string>,
     disadvantages: string,
-    imageHashes: Array<string>
+    content: string,
+    advantages: string
 }
 
 export interface IApiSEOBlock {
-    title: string,
     type: string,
+    title: string,
     text: string,
     items: Array<IApiSEOBlockItem>
 }
 
 export interface IApiSEOBlockItem {
+    url: string,
     title: string,
     text: string,
-    url: string,
+    minPrice: number,
     class: string,
     cityId: number,
-    cityAlias: string,
-    minPrice: number
+    cityAlias: string
 }
 
 export interface IApiSEOInstruction {
-    key: string,
-    product: IApiProductSummary,
     values: Array<IApiInstructionField>,
+    product: IApiProductSummary,
+    key: string,
     instructions: Array<IApiInstructionField>,
-    certificates: Array<string>,
-    certificatesPictures: Array<IApiPicture>
+    certificatesPictures: Array<IApiPicture>,
+    certificates: Array<string>
 }
 
 export interface IApiSEOTradeContent {
@@ -2048,122 +2048,122 @@ export interface IApiSEOTradeContent {
 }
 
 export interface IApiSeoLink {
-    group: string,
     url: string,
-    title: string
+    title: string,
+    group: string
 }
 
 export interface IApiSiteBusinessCounters {
-    siteTraffic: IApiValue,
-    appsTraffic: IApiValue,
     turnover: IApiValue,
+    siteTraffic: IApiValue,
+    products: IApiValue,
     pharmacies: IApiValue,
-    products: IApiValue
+    appsTraffic: IApiValue
 }
 
 export interface IApiSiteCounters {
     years: IApiValue,
-    products: IApiValue,
     visitors: IApiValue,
-    networks: IApiValue,
     regions: IApiValue,
+    products: IApiValue,
     pharmacies: IApiValue,
+    networks: IApiValue,
     economy: IApiValue
 }
 
 export interface IApiStation {
-    stationId: number,
-    cityId: number,
     title: string,
-    color: string,
+    stationId: number,
+    longitude: number,
     latitude: number,
-    longitude: number
+    color: string,
+    cityId: number
 }
 
 export interface IApiStatusOrder {
-    statusId: number,
-    userStatusId: number,
-    name: string,
-    description: string,
     workflowPercent: number,
+    userStatusId: number,
+    statusId: number,
     reservationPercent: number,
-    color: string,
-    colorHex: string,
-    imageSvg: string,
-    imagePng1x: string,
-    imagePng2x: string,
-    imagePng3x: string,
-    imagePng4x: string,
-    isCurrent: boolean,
+    name: string,
     isReady: boolean,
-    isCollecting: boolean,
-    isCancelled: boolean,
-    isCompleted: boolean,
-    isCancelable: boolean,
-    isCompletableByUser: boolean,
-    isCancelledCompletableByUser: boolean,
     isDeletableByUser: boolean,
+    isCurrent: boolean,
+    isCompleted: boolean,
+    isCompletableByUser: boolean,
+    isCollecting: boolean,
+    isCancelledCompletableByUser: boolean,
+    isCancelled: boolean,
+    isCancelable: boolean,
     isAddable: boolean,
+    imageSvg: string,
+    imagePng4x: string,
+    imagePng3x: string,
+    imagePng2x: string,
+    imagePng1x: string,
+    description: string,
+    colorHex: string,
+    color: string,
     addableTill?: string
 }
 
 export interface IApiSubCategory {
-    id: number,
     title: string,
-    alias: string,
+    mergedPropertyIds: Array<number>,
+    id: number,
     categoryId: number,
-    mergedPropertyIds: Array<number>
+    alias: string
 }
 
 export interface IApiSuggestAddress {
+    type: string,
     title: string,
     subtitle: string,
-    fullTitle: string,
-    type: string,
-    latitude: number,
+    rectangle: string,
     longitude: number,
-    rectangle: string
+    latitude: number,
+    fullTitle: string
 }
 
 export interface IApiSuggestAddressDelivery {
+    type: string,
     title: string,
     subtitle: string,
-    fullTitle: string,
-    type: string,
     street: string,
     number: string,
-    isDeliveryAvailable: boolean
+    isDeliveryAvailable: boolean,
+    fullTitle: string
 }
 
 export interface IApiTradeLink {
-    title: string,
     url: string,
-    image: string,
+    title: string,
+    productsCount: number,
     minPrice: number,
-    productsCount: number
+    image: string
 }
 
 export interface IApiUserCartResponse {
     result: boolean,
-    missingProducts: Array<IApiCartProduct>,
-    cartId: string,
-    cityId: number,
-    cart: Array<IApiCartProduct>,
-    cartPickUp: Array<IApiCartProduct>, // deprecated
-    cartDelivery: Array<IApiCartProduct>, // deprecated
     pharmacyCountPickUp?: IApiPharmacyCount,
     pharmacyCountDelivery?: IApiPharmacyCount,
-    isDeliveryPossible: boolean,
-    isDeliveryAvailable: boolean,
-    isDeliveryCourierAvailable: boolean, // deprecated
-    cartContext?: IApiCartContextResponse,
+    missingProducts: Array<IApiCartProduct>,
     lastCartUpdate: number,
-    hasCompletePickUp: boolean
+    isDeliveryPossible: boolean,
+    isDeliveryCourierAvailable: boolean, // deprecated
+    isDeliveryAvailable: boolean,
+    hasCompletePickUp: boolean,
+    cityId: number,
+    cartPickUp: Array<IApiCartProduct>, // deprecated
+    cartId: string,
+    cartDelivery: Array<IApiCartProduct>, // deprecated
+    cartContext?: IApiCartContextResponse,
+    cart: Array<IApiCartProduct>
 }
 
 export interface IApiValue {
-    title: string,
-    value: string
+    value: string,
+    title: string
 }
 
 export interface IAppCheckCaptchaParams {
@@ -2583,8 +2583,8 @@ export interface IFieldError {
 }
 
 export interface IFieldErrorConstraint {
-    max: number, // Max value for field.
-    min: number // Min value for field.
+    min: number, // Min value for field.
+    max: number // Max value for field.
 }
 
 export interface IMapAreaByIpParams {

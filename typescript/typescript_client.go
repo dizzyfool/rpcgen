@@ -271,6 +271,10 @@ func addTSComplexInterface(models *tsModels, interfacesCache map[string]interfac
 		}, p.Description, typeMapper))
 	}
 
+	sort.Slice(tsTypes, func(i, j int) bool {
+		return tsTypes[i].Name > tsTypes[j].Name
+	})
+
 	addTSInterface(models, interfacesCache, tsInterface{
 		Name:       interfacePrefix + in.Description,
 		Parameters: tsTypes,
