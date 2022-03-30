@@ -13,18 +13,18 @@ export interface ICatalogueSecondParams {
 }
 
 export interface IGroup {
-  id: number,
   title: string,
+  sub: ISubGroup,
   nodes: Array<IGroup>,
+  id: number,
   groups: Array<IGroup>,
-  child?: IGroup,
-  sub: ISubGroup
+  child?: IGroup
 }
 
 export interface ISubGroup {
-  id: number,
   title: string,
-  nodes: Array<IGroup>
+  nodes: Array<IGroup>,
+  id: number
 }
 
 export const factory = (send) => ({

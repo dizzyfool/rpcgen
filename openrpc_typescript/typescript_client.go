@@ -12,7 +12,7 @@ import (
 
 	"github.com/vmkteam/rpcgen/v2/typescript"
 
-	openrpc "github.com/open-rpc/meta-schema"
+	openrpc "github.com/vmkteam/meta-schema"
 	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
@@ -317,7 +317,12 @@ func addTSComplexInterface(models *tsModels, interfacesCache map[string]interfac
 
 	schema := *in.JSONSchemaObject
 
-	for propName, p := range *schema.Properties {
+	for _, propName := range schema.Properties.Keys() {
+		p, ok := schema.Properties.Get(propName)
+		if !ok {
+			continue
+		}
+
 		propSchema, ok := p.(openrpc.JSONSchema)
 		if !ok {
 			continue

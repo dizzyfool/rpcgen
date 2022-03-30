@@ -4,9 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	openrpc_document "github.com/open-rpc/meta-schema"
+	openrpc_document "github.com/vmkteam/meta-schema"
 	"github.com/vmkteam/rpcgen/v2/openrpc"
-	"github.com/vmkteam/rpcgen/v2/typescript"
 	"github.com/vmkteam/zenrpc/v2/smd"
 	"io/ioutil"
 	"os"
@@ -34,6 +33,11 @@ func TestGenerateTypeScriptClient(t *testing.T) {
 		t.Fatalf("open test data file: %v", err)
 	}
 
+	err = ioutil.WriteFile("./testdata/catalogue_client.ts", generated, os.ModePerm)
+	if err != nil {
+		t.Fatalf("save openrpc: %v", err)
+	}
+
 	if !bytes.Equal(generated, testData) {
 		t.Fatalf("bad generator output")
 	}
@@ -51,24 +55,6 @@ func TestGenerateOpenRPCClientAPISRV(t *testing.T) {
 	}
 
 	openrpcCl := openrpc.NewClient(schema, "test", "http://localhost")
-
-	typeMapper := TypeMapperConvert(func(in smd.JSONSchema, tsType typescript.Type) typescript.Type {
-		if in.Type == "object" {
-			if in.Description == "ApiPharmacy" && in.Name == "pharmacies" {
-				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-			}
-			if in.Description == "ApiMapExtendedPickupPrice" && in.Name == "extendedPickups" {
-				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-			}
-			if in.Description == "ApiMapPharmacyPrice" && in.Name == "pharmacies" {
-				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-			}
-			if in.Description == "ApiMapPartner" && in.Name == "partners" {
-				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-			}
-		}
-		return tsType
-	})
 
 	typeMapper := func(in openrpc_document.JSONSchema, tsType Type) Type {
 		if in.JSONSchemaObject == nil {
