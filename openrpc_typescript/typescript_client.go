@@ -10,7 +10,10 @@ import (
 	"text/template"
 	"unicode"
 
+	"github.com/vmkteam/rpcgen/v2/typescript"
+
 	openrpc "github.com/open-rpc/meta-schema"
+	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
 const (
@@ -214,21 +217,7 @@ func addTSInterface(models *tsModels, interfaces map[string]interface{}, ti tsIn
 
 // convertTSScalar converts TypeScript scalars.
 func convertTSScalar(t openrpc.Type) string {
-	// TODO empty type?
-	if t.SimpleTypes == nil {
-		return "string"
-	}
-
-	var stringType string
-	switch v := (*t.SimpleTypes).(type) {
-	case string:
-		stringType = v
-	case []string:
-		stringType = v[0]
-	default:
-		stringType = "string"
-	}
-
+	stringType := getStringType(t)
 	switch stringType {
 	case "integer", "int":
 		return "number"
@@ -236,6 +225,22 @@ func convertTSScalar(t openrpc.Type) string {
 		return voidResponse
 	default:
 		return stringType
+	}
+}
+
+func getStringType(t openrpc.Type) string {
+	// TODO empty type?
+	if t.SimpleTypes == nil {
+		return "string"
+	}
+
+	switch v := (*t.SimpleTypes).(type) {
+	case string:
+		return v
+	case []string:
+		return v[0]
+	default:
+		return "string"
 	}
 }
 
@@ -307,27 +312,31 @@ func convertTSReturn(in *openrpc.MethodObjectResult, components *openrpc.Content
 }
 
 // addTSComplexInterface converts complex type stored in smd1.JSONSchema to tsInterface and adds it to client.
-func addTSComplexInterface(models *tsModels, interfacesCache map[string]interface{}, name string, in openrpc.JSONSchema, typeMapper func(in openrpc.JSONSchema, tsType Type) Type) {
+func addTSComplexInterface(models *tsModels, interfacesCache map[string]interface{}, name string, in openrpc.JSONSchema, typeMapper TypeMapper) {
 	var tsTypes []Type
 
 	schema := *in.JSONSchemaObject
 
-	for name, p := range *schema.Properties {
+	for propName, p := range *schema.Properties {
 		propSchema, ok := p.(openrpc.JSONSchema)
 		if !ok {
 			continue
 		}
 
-		var comm string
+		var desc string
 		if propSchema.JSONSchemaObject.Description != nil {
-			comm = string(*propSchema.JSONSchemaObject.Description)
+			desc = string(*propSchema.JSONSchemaObject.Description)
 		}
 
+		// fo type mapper
+		comm := openrpc.Comment(fmt.Sprintf("%s.%s", name, propName))
+		propSchema.JSONSchemaObject.Comment = &comm
+
 		tsTypes = append(tsTypes, convertTSType(
-			name,
+			propName,
 			propSchema,
-			isRequired(name, in.JSONSchemaObject.Required),
-			comm,
+			isRequired(propName, in.JSONSchemaObject.Required),
+			desc,
 			typeMapper,
 		))
 	}
@@ -370,5 +379,50 @@ func isRequired(name string, required *openrpc.StringArray) bool {
 }
 
 func refBase(ref *openrpc.Ref) string {
-	return path.Base(string(*ref))
+	if ref != nil {
+		return path.Base(string(*ref))
+	}
+	return ""
+}
+
+func TypeMapperConvert(tm typescript.TypeMapper) TypeMapper {
+	return func(in openrpc.JSONSchema, tsType Type) Type {
+		if in.JSONSchemaObject == nil {
+			return tsType
+		}
+
+		smdSchema := smd.JSONSchema{
+			Name:        tsType.Name,
+			Description: refBase(in.JSONSchemaObject.Ref),
+			Optional:    tsType.Optional,
+		}
+
+		if in.JSONSchemaObject.Ref != nil {
+			smdSchema.Type = "object"
+		} else if in.JSONSchemaObject.Type != nil {
+			smdSchema.Type = getStringType(*in.JSONSchemaObject.Type)
+		}
+
+		comm := in.JSONSchemaObject.Comment
+		if comm != nil {
+			parts := strings.Split(string(*comm), ".")
+			smdSchema.Name = parts[0]
+		}
+
+		// TODO items
+
+		tx := tm(smdSchema, typescript.Type{
+			Name:     tsType.Name,
+			Comment:  tsType.Comment,
+			Type:     tsType.Type,
+			Optional: tsType.Optional,
+		})
+
+		return Type{
+			Name:     tx.Name,
+			Comment:  tx.Comment,
+			Type:     tx.Type,
+			Optional: tx.Optional,
+		}
+	}
 }

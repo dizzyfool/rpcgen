@@ -30881,8 +30881,7 @@
           "ApiPharmacy": {
             "type": "object",
             "properties": {
-              "id"
-              : {
+              "id": {
                 "type": "integer"
               },
               "pharmacyNetworkId": {

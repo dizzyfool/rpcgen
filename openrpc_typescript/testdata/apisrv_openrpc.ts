@@ -1001,8 +1001,8 @@ export interface IApiMapPharmaciesResponse {
     totalDistinct: number,
     total: number,
     statistics: IApiMapStatistics,
-    pharmacies: IApiMapPharmacyPrice,
-    partners: IApiMapPartner,
+    pharmacies: Record<number, IApiMapPharmacyPrice>,
+    partners: Record<number, IApiMapPartner>,
     byMinPrice: Array<IApiMapByListItem>,
     byDistance: Array<IApiMapByListItem>
 }

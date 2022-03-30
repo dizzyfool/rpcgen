@@ -3,8 +3,10 @@ package openrpc_typescript
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	openrpc_document "github.com/open-rpc/meta-schema"
 	"github.com/vmkteam/rpcgen/v2/openrpc"
+	"github.com/vmkteam/rpcgen/v2/typescript"
 	"github.com/vmkteam/zenrpc/v2/smd"
 	"io/ioutil"
 	"os"
@@ -50,21 +52,52 @@ func TestGenerateOpenRPCClientAPISRV(t *testing.T) {
 
 	openrpcCl := openrpc.NewClient(schema, "test", "http://localhost")
 
+	typeMapper := TypeMapperConvert(func(in smd.JSONSchema, tsType typescript.Type) typescript.Type {
+		if in.Type == "object" {
+			if in.Description == "ApiPharmacy" && in.Name == "pharmacies" {
+				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
+			}
+			if in.Description == "ApiMapExtendedPickupPrice" && in.Name == "extendedPickups" {
+				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
+			}
+			if in.Description == "ApiMapPharmacyPrice" && in.Name == "pharmacies" {
+				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
+			}
+			if in.Description == "ApiMapPartner" && in.Name == "partners" {
+				tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
+			}
+		}
+		return tsType
+	})
+
 	typeMapper := func(in openrpc_document.JSONSchema, tsType Type) Type {
-		//if in.Type == "object" {
-		//	if in.Description == "ApiPharmacy" && in.Name == "pharmacies" {
-		//		tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-		//	}
-		//	if in.Description == "ApiMapExtendedPickupPrice" && in.Name == "extendedPickups" {
-		//		tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-		//	}
-		//	if in.Description == "ApiMapPharmacyPrice" && in.Name == "pharmacies" {
-		//		tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-		//	}
-		//	if in.Description == "ApiMapPartner" && in.Name == "partners" {
-		//		tsType.Type = fmt.Sprintf("Record<number, I%s>", in.Description)
-		//	}
-		//}
+		if in.JSONSchemaObject == nil {
+			return tsType
+		}
+
+		obj := in.JSONSchemaObject
+		if obj.Ref != nil {
+			comm := in.JSONSchemaObject.Comment
+			if comm != nil {
+				base := refBase(obj.Ref)
+				scom := string(*comm)
+				if base == "ApiPharmacy" && scom == "ApiMapClusterResponse.pharmacies" {
+					tsType.Type = fmt.Sprintf("Record<number, I%s>", base)
+				}
+				if base == "ApiMapExtendedPickupPrice" && scom == "ApiMapClusterResponse.extendedPickups" {
+					tsType.Type = fmt.Sprintf("Record<number, I%s>", base)
+				}
+				if base == "ApiMapPartner" && scom == "ApiMapClusterResponse.partners" {
+					tsType.Type = fmt.Sprintf("Record<number, I%s>", base)
+				}
+				if base == "ApiMapPharmacyPrice" && scom == "ApiMapPharmaciesResponse.pharmacies" {
+					tsType.Type = fmt.Sprintf("Record<number, I%s>", base)
+				}
+				if base == "ApiMapPartner" && scom == "ApiMapPharmaciesResponse.partners" {
+					tsType.Type = fmt.Sprintf("Record<number, I%s>", base)
+				}
+			}
+		}
 		return tsType
 	}
 	cl := NewClient(openrpcCl.GenerateSchema(), typeMapper)
