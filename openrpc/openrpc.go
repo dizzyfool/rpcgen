@@ -3,7 +3,7 @@ package openrpc
 import (
 	"encoding/json"
 
-	openrpc "github.com/vmkteam/meta-schema"
+	openrpc "github.com/vmkteam/rpcgen/v2/openrpc_document"
 	"github.com/vmkteam/zenrpc/v2/smd"
 )
 
