@@ -72,7 +72,7 @@ func newParamStruct(service smd.Service) openrpc.MethodObjectParamStructure {
 		}
 	}
 
-	return openrpc.MethodObjectParamStructureEnum2
+	return ""
 }
 
 func newParams(serviceName string, service smd.Service) []openrpc.ContentDescriptorOrReference {

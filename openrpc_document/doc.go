@@ -67,7 +67,7 @@ type ServerObjectVariable struct {
 }
 
 type ServerObject struct {
-	Url         string                          `json:"url,identifier"`
+	Url         string                          `json:"url"`
 	Name        string                          `json:"name,omitempty"`
 	Description string                          `json:"description,omitempty"`
 	Summary     string                          `json:"summary,omitempty"`
@@ -289,10 +289,10 @@ func (a *Type) UnmarshalJSON(bytes []byte) error {
 	return errors.New("failed to unmarshal any of the object properties")
 }
 func (o Type) MarshalJSON() ([]byte, error) {
-	out := []interface{}{}
 	if o.SimpleType != "" {
-		out = append(out, o.SimpleType)
+		return json.Marshal(o.SimpleType)
 	}
+	out := []interface{}{}
 	if o.ArrayOfSimpleTypes != nil {
 		out = append(out, o.ArrayOfSimpleTypes)
 	}
@@ -724,6 +724,16 @@ type MethodObject struct {
 	Deprecated     bool                           `json:"deprecated,omitempty"`
 	ExternalDocs   *ExternalDocumentationObject   `json:"externalDocs,omitempty"`
 }
+
+func (o MethodObject) MarshalJSON() ([]byte, error) {
+	type aux MethodObject
+	if o.Params == nil {
+		o.Params = []ContentDescriptorOrReference{}
+	}
+
+	return json.Marshal(aux(o))
+}
+
 type MethodOrReference struct {
 	*MethodObject
 	*ReferenceObject

@@ -6,6 +6,8 @@ import (
 
 	"github.com/vmkteam/rpcgen/v2/golang"
 	"github.com/vmkteam/rpcgen/v2/openrpc"
+	"github.com/vmkteam/rpcgen/v2/openrpc_diff"
+	"github.com/vmkteam/rpcgen/v2/openrpc_document"
 	"github.com/vmkteam/rpcgen/v2/php"
 	"github.com/vmkteam/rpcgen/v2/typescript"
 
@@ -35,6 +37,10 @@ func (g RPCGen) TSClient(typeMapper typescript.TypeMapper) Generator {
 
 func (g RPCGen) OpenRPC(title, host string) Generator {
 	return openrpc.NewClient(g.schema, title, host)
+}
+
+func (g RPCGen) OpenRPCDiff(old, new openrpc_document.OpenrpcDocument) Generator {
+	return openrpc_diff.NewClient(old, new)
 }
 
 // FromSMD create Generator from smd schema

@@ -1,6 +1,7 @@
-package openrpc
+package openrpc_diff
 
 import (
+	"github.com/vmkteam/rpcgen/v2/openrpc"
 	"testing"
 
 	"github.com/vmkteam/zenrpc/v2"
@@ -13,7 +14,7 @@ func TestNewDiff(t *testing.T) {
 	rpc.Register("arith", testdata.ArithService{})
 
 	old := rpc.SMD()
-	openrpcOld := NewSchema(old, "test_old", "")
+	openrpcOld := openrpc.NewSchema(old, "test_old", "")
 
 	// change sum args and return to float
 	new := old
@@ -30,8 +31,19 @@ func TestNewDiff(t *testing.T) {
 	service.Returns.Type = smd.Float
 	new.Services["arith.Sum"] = service
 
-	openrpcNew := NewSchema(new, "test_new", "")
+	openrpcNew := openrpc.NewSchema(new, "test_new", "")
 	openrpcNew.Methods = append(openrpcNew.Methods[1:], openrpcNew.Methods[:1]...)
 
-	NewDiff(openrpcOld, openrpcNew)
+	diff, err := NewDiff(openrpcOld, openrpcNew)
+	if err != nil {
+		t.Fatalf("new diff error: %v", err)
+	}
+
+	if diff.Criticality != Breaking {
+		t.Fatalf("diff.Criticality = %v, want: %v", diff.Criticality, Breaking)
+	}
+
+	if len(diff.Changes) != 6 {
+		t.Fatalf("len(diff.Changes) = %v, want: %v", len(diff.Changes), 6)
+	}
 }
